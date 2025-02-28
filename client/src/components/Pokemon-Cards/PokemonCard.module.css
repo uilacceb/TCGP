@@ -2,7 +2,7 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  background-color: black;
+  background-color: rgb(46, 46, 46);
 }
 
 .container {
@@ -13,22 +13,40 @@ body {
 
 .main_div {
   /* background-image: url("../assets/bg-1.jpg"); */
-  background-color: black;
+  background-color: rgba(255, 255, 255, 0.909);
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (min-width: 443px) {
   .container {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 600px) {
   .container {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-@media only screen and (min-width: 1300px) {
+@media only screen and (min-width: 768px) {
   .container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1244px) {
+  .container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1386px) {
+  .container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }

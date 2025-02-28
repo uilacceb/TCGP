@@ -1,5 +1,5 @@
 import styles from "./SingleCard.module.css"
-import AddToCard from "../../assets/shopping-cart.png"
+import AddToCard from "../../assets/add-to-cart.png"
 import { useState } from "react"
 
 const SingleCard = ({ src, name, id, rarity, type }) => {
@@ -46,16 +46,19 @@ const SingleCard = ({ src, name, id, rarity, type }) => {
 
   return (
     <div className={styles.container}>
-      <img
-        src={src}
-        alt={name ?? `Card-${id}`}
-        className={styles.image}
-      />
+      <div className={styles.imageDiv}>
+        <img
+          src={src}
+          alt={name ?? `Card-${id}`}
+          className={styles.image}
+        />
+      </div>
       <div className={styles.info}>
-        <h3>{name}</h3>
+
+        <h3 className={styles.name}>{name}</h3>
         <p className={styles.price}>Price: ${price}</p>
-        <p className={styles.rarity}>Rarity: {rarity}</p>
-        <p className={styles.type}>Type: {type}</p>
+        {/* <p className={styles.rarity}>Rarity: {rarity}</p>
+        <p className={styles.type}>Type: {type}</p> */}
         <div className={styles.addDelete}>
           <button onClick={subQuantity} className={styles.plusButton}>-</button>
           <input className={styles.quantity} type="text" min={1}
