@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./PokemonCard.module.css"
-import SingleCard from "./SingleCard";
-import { fetchAllCards } from "../pokemonDB";
+import SingleCard from "../Single-Card/SingleCard";
+import { fetchAllCards } from "../../pokemonDB";
 
 
 const PokemonCard = () => {

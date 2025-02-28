@@ -1,9 +1,18 @@
-import PokemonCard from "./components/PokemonCard";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PokemonCard from "./components/Pokemon-Cards/PokemonCard";
+import Layout from "./components/Layout"
+
 
 
 function App() {
   return (
-    <PokemonCard />
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout><PokemonCard /></Layout>} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 
 }
