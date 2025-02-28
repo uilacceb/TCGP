@@ -1,6 +1,6 @@
 import styles from "./SingleCard.module.css"
 
-const SingleCard = ({ src, name, id, rarity }) => {
+const SingleCard = ({ src, name, id, rarity, type }) => {
   const getPrice = (rarity) => {
     switch (rarity) {
       case "◊":
@@ -39,6 +39,7 @@ const SingleCard = ({ src, name, id, rarity }) => {
         <h3>{name}</h3>
         <p className={styles.price}>Price: ${price}</p>
         <p className={styles.rarity}>Rarity: {rarity}</p>
+        <p className={styles.type}>Type: {type}</p>
       </div>
     </div>
   )
