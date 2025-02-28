@@ -92,68 +92,30 @@ const PokemonCard = () => {
     }
   };
 
-  // 2) Then each button handler becomes a simple one-line call:
-  const filterSetA1 = () => {
-    fetchAndFilterSet("Genetic Apex  (A1)");
-  };
+  // --- Buttons for filtering sets ---
+  const filterSetA1 = () => fetchAndFilterSet("Genetic Apex  (A1)");
+  const filterSetA1a = () => fetchAndFilterSet("Mythical Island  (A1a)");
+  const filterSetA2 = () => fetchAndFilterSet("Space-Time Smackdown  (A2)");
+  const filterSetPA = () => fetchAndFilterSet("Promo-A");
 
-  const filterSetA1a = () => {
-    fetchAndFilterSet("Mythical Island  (A1a)");
-  };
+  // --- Buttons for filtering packs ---
+  const filterPackMewTwo = () => fetchAndFilterPack("Mewtwo pack");
+  const filterPackCharizard = () => fetchAndFilterPack("Charizard pack");
+  const filterPackPikachu = () => fetchAndFilterPack("Pikachu pack");
+  const filterPackDialga = () => fetchAndFilterPack("Dialga pack");
+  const filterPackPalika = () => fetchAndFilterPack("Palkia pack");
+  const filterPackMythical = () => fetchAndFilterPack("Mew pack");
+  const filterEveryPack = () => fetchAndFilterPack("Every pack");
 
-  const filterSetA2 = () => {
-    fetchAndFilterSet("Space-Time Smackdown  (A2)");
-  };
-
-  const filterSetPA = () => {
-    fetchAndFilterSet("Promo-A");
-  };
-
-  const filterPackMewTwo = () => {
-    fetchAndFilterPack("Mewtwo pack")
-  }
-  const filterPackCharizard = () => {
-    fetchAndFilterPack("Charizard pack")
-  }
-  const filterPackPikachu = () => {
-    fetchAndFilterPack("Pikachu pack")
-  }
-  const filterPackDialga = () => {
-    fetchAndFilterPack("Dialga pack")
-  }
-  const filterPackPalika = () => {
-    fetchAndFilterPack("Palkia pack")
-  }
-  const filterPackMythical = () => {
-    fetchAndFilterPack("Mew pack")
-  }
-  const filterEveryPack = () => {
-    fetchAndFilterPack("Every pack")
-  }
-  const filterThreeStarPack = () => {
-    filterRarityCard("☆☆☆")
-  }
-  const filterTwoStarPack = () => {
-    filterRarityCard("☆☆")
-  }
-  const filterOneStarPack = () => {
-    filterRarityCard("☆")
-  }
-  const filterFourDiamondPack = () => {
-    filterRarityCard("◊◊◊◊")
-  }
-  const filterThreeDiamondPack = () => {
-    filterRarityCard("◊◊◊")
-  }
-  const filterTwoDiamondPack = () => {
-    filterRarityCard("◊◊")
-  }
-  const filterOneDiamondPack = () => {
-    filterRarityCard("◊")
-  }
-  const filterCrownPack = () => {
-    filterRarityCard("Crown Rare")
-  }
+  // --- Buttons for filtering rarities ---
+  const filterThreeStarPack = () => filterRarityCard("☆☆☆");
+  const filterTwoStarPack = () => filterRarityCard("☆☆");
+  const filterOneStarPack = () => filterRarityCard("☆");
+  const filterFourDiamondPack = () => filterRarityCard("◊◊◊◊");
+  const filterThreeDiamondPack = () => filterRarityCard("◊◊◊");
+  const filterTwoDiamondPack = () => filterRarityCard("◊◊");
+  const filterOneDiamondPack = () => filterRarityCard("◊");
+  const filterCrownPack = () => filterRarityCard("Crown Rare");
 
   return (
     <div className={styles.main_div} >
