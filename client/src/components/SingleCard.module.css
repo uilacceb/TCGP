@@ -2,12 +2,15 @@
 
 .container {
   display: flex;
-  border: 1px solid hsl(205, 0%, 78%);
+  /* border: 1px solid hsl(205, 0%, 78%); */
   margin: 20px;
-  box-shadow: 10px 5px 5px hsla(205, 0%, 80%, 1);
+  box-shadow: 10px 10px 5px rgb(114, 114, 114);
   /* cursor: pointer; */
-  transition-duration: 0.5s;
+  transition: width 1s;
+  transition-timing-function: ease-in;
   caret-color: transparent;
+  background-color: azure;
+  border-radius: 20px;
 }
 
 .container:hover {
@@ -23,7 +26,8 @@
   font-family: "Roboto";
   font-weight: 200;
 }
-.rarity {
+.rarity,
+.price {
   font-family: "Roboto";
   font-weight: 500;
   font-size: 1.1rem;

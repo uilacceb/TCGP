@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./PokemonCard.module.css"
 import SingleCard from "./SingleCard";
+import { allCards } from "../pokemonDB";
 
 
 const PokemonCard = () => {
@@ -15,6 +16,7 @@ const PokemonCard = () => {
       try {
         const res = await fetch(api)
         const data = await res.json();
+        console.log(allCards)
         console.log(data[0].rarity)
         setCards(data);
       } catch (err) {
@@ -27,9 +29,9 @@ const PokemonCard = () => {
 
   const filterCard = async () => {
     try {
-      const res = await fetch(api);
+      const res = await fetch(allCards);
       const data = await res.json();
-      const filtered = data.filter((card) => card.rarity === "◊◊◊");
+      const filtered = data.filter((card) => card.rarity === "☆☆");
       setCards(filtered);
     } catch (err) {
       console.error("Error fetching cards:", err);
@@ -37,7 +39,7 @@ const PokemonCard = () => {
   };
 
   return (
-    <div >
+    <div className={styles.main_div} >
       <button onClick={filterCard}>Fetch Cards</button>
       <button onClick={() => setToggleRefresh(prev => prev + 1)}>refresh</button>
       <div className={styles.container} >

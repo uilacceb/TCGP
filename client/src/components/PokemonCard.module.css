@@ -1,6 +1,17 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr;
+}
+
+.main_div {
+  background-image: url("../assets/bg-1.jpg");
+  background-color: #cccccc;
+  
 }
 @media only screen and (min-width: 768px) {
   .container {
