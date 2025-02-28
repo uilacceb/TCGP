@@ -2,19 +2,19 @@
 
 .container {
   display: flex;
-  /* border: 1px solid hsl(205, 0%, 78%); */
   margin: 20px;
-  box-shadow: 10px 10px 5px rgb(114, 114, 114);
-  /* cursor: pointer; */
-  transition: width 1s;
-  transition-timing-function: ease-in;
+  width: 80%;
+  box-shadow: 15px 10px 30px rgba(133, 243, 65, 0.881);
   caret-color: transparent;
   background-color: azure;
   border-radius: 20px;
+  transform: scale(0.95);
 }
 
 .container:hover {
-  transform: scale(1.1);
+  transition: 0.5s ease;
+  transform: scale(1.005);
+  cursor: pointer;
 }
 
 .image {
