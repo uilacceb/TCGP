@@ -21,7 +21,8 @@ const PokemonCard = () => {
           ...data.A1,
           ...data.A1a,
           ...data.A2,
-          ...data.PA
+          ...data.PA,
+          ...data.A2a
         ];
         setCards(combined);
       } catch (error) {
@@ -38,7 +39,8 @@ const PokemonCard = () => {
         ...data.A1,
         ...data.A1a,
         ...data.A2,
-        ...data.PA
+        ...data.PA,
+        ...data.A2a
       ];
 
       const filtered = combined.filter(
@@ -59,7 +61,8 @@ const PokemonCard = () => {
         ...data.A1,
         ...data.A1a,
         ...data.A2,
-        ...data.PA
+        ...data.PA,
+        ...data.A2a
       ];
 
       const filtered = combined.filter(
@@ -79,7 +82,8 @@ const PokemonCard = () => {
         ...data.A1,
         ...data.A1a,
         ...data.A2,
-        ...data.PA
+        ...data.PA,
+        ...data.A2a
       ];
 
       const filtered = combined.filter(
@@ -97,6 +101,7 @@ const PokemonCard = () => {
   const filterSetA1a = () => fetchAndFilterSet("Mythical Island  (A1a)");
   const filterSetA2 = () => fetchAndFilterSet("Space-Time Smackdown  (A2)");
   const filterSetPA = () => fetchAndFilterSet("Promo-A");
+  const filterSetA2a = () => fetchAndFilterSet("Triumphant Light  (A2a)")
 
   // --- Buttons for filtering packs ---
   const filterPackMewTwo = () => fetchAndFilterPack("Mewtwo pack");
@@ -130,6 +135,7 @@ const PokemonCard = () => {
       <button onClick={filterSetA1}>A1</button>
       <button onClick={filterSetA1a}>A1a</button>
       <button onClick={filterSetA2}>A2</button>
+      <button onClick={filterSetA2a}>A2a</button>
       <button onClick={filterSetPA}>PA</button>
       <button onClick={filterPackMewTwo}>MewTwo</button>
       <button onClick={filterPackCharizard}>Charizard</button>
