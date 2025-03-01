@@ -16,6 +16,29 @@ body {
   background-color: rgba(255, 255, 255, 0.909);
 }
 
+.filterButton {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rarityIcons {
+  display: flex;
+  margin-left: 2rem;
+  box-shadow: 10px 10px 5px #c2c2c2;
+  height: 50px;
+}
+
+.filterRarity {
+  display: flex;
+}
+
+.rarityIcons:hover {
+  cursor: pointer;
+}
+
+.seriesIcons {
+}
+
 @media only screen and (min-width: 443px) {
   .container {
     grid-template-columns: 1fr 1fr;
