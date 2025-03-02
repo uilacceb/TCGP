@@ -14,6 +14,8 @@ import genericApexSerie from "../../assets/genetic apex series.webp"
 import smackDownSeries from "../../assets/space time smack down series.webp"
 import mythicalIslandSeries from "../../assets/mythical island series.webp"
 import triumphantSeries from "../../assets/triumphant light.png"
+import TriumphantLightPackURL from "../../assets/Triumphant Light Pack.png"
+import EveryPack from "../../assets/boosterPack.png"
 
 
 const PokemonCard = () => {
@@ -124,6 +126,7 @@ const PokemonCard = () => {
   const filterPackDialga = () => fetchAndFilterPack("Dialga pack");
   const filterPackPalkia = () => fetchAndFilterPack("Palkia pack");
   const filterPackMythical = () => fetchAndFilterPack("Mew pack");
+  const filterPackTriumphantLight = () => fetchAndFilterPack("Arceus pack")
   const filterEveryPack = () => fetchAndFilterPack("Every pack");
 
   // --- Buttons for filtering rarities ---
@@ -138,7 +141,8 @@ const PokemonCard = () => {
 
   return (
     <div className={styles.main_div} >
-      <div className={styles.filterButton}>
+      <div className={styles.filterButtons}>
+        {/* filter rarity */}
         <div className={styles.filterRarity}>
           <div className={styles.rarityIcons} onClick={filterCrownPack}>
             <img src={rarityCrown} height={30} width={40} />
@@ -156,81 +160,82 @@ const PokemonCard = () => {
             <img src={rarityStar} height={30} width={30} />
           </div>
           <div className={styles.rarityIcons} onClick={filterFourDiamondPack}>
-            <img src={rarityDiamond} height={40} width={30} />
-            <img src={rarityDiamond} height={40} width={30} />
-            <img src={rarityDiamond} height={40} width={30} />
-            <img src={rarityDiamond} height={40} width={30} />
+            <img src={rarityDiamond} height={30} width={20} />
+            <img src={rarityDiamond} height={30} width={20} />
+            <img src={rarityDiamond} height={30} width={20} />
+            <img src={rarityDiamond} height={30} width={20} />
+
           </div>
           <div className={styles.rarityIcons} onClick={filterThreeDiamondPack}>
-            <img src={rarityDiamond} height={40} width={30} />
-            <img src={rarityDiamond} height={40} width={30} />
-            <img src={rarityDiamond} height={40} width={30} />
+            <img src={rarityDiamond} height={30} width={20} />
+            <img src={rarityDiamond} height={30} width={20} />
+            <img src={rarityDiamond} height={30} width={20} />
           </div>
           <div className={styles.rarityIcons} onClick={filterTwoDiamondPack}>
-            <img src={rarityDiamond} height={40} width={30} />
-            <img src={rarityDiamond} height={40} width={30} />
+            <img src={rarityDiamond} height={30} width={20} />
+            <img src={rarityDiamond} height={30} width={20} />
           </div>
           <div className={styles.rarityIcons} onClick={filterOneDiamondPack}>
-            <img src={rarityDiamond} height={40} width={30} />
+            <img src={rarityDiamond} height={30} width={20} />
           </div>
         </div>
+        {/* filter series */}
         <div className={styles.filterSeries}>
-          <div className={styles.seriesIcons}>
-            <img src={genericApexSerie} onClick={filterSetA1} />
-            <p onClick={filterSetA1}>A1</p>
-          </div>
-          <div className={styles.seriesIcons}>
-            <img src={mythicalIslandSeries} onClick={filterSetA1a} />
-            <p onClick={filterSetA1a}>A1a</p>
-          </div>
-          <div className={styles.seriesIcons}>
-            <img src={smackDownSeries} onClick={filterSetA2} />
-            <p onClick={filterSetA2}>A2</p>
-          </div>
+          <div className={styles.filterSeries}>
+            <div className={styles.seriesIcons}>
+              <img src={genericApexSerie} onClick={filterSetA1} />
+            </div>
+            <div className={styles.seriesIcons}>
+              <img src={mythicalIslandSeries} onClick={filterSetA1a} />
+            </div>
+            <div className={styles.seriesIcons}>
+              <img src={smackDownSeries} onClick={filterSetA2} />
+            </div>
 
-          <div className={styles.seriesIcons}>
-            <img src={triumphantSeries} onClick={filterSetA2a} width={230} />
-            <p onClick={filterSetA2a}>A2a</p>
-          </div>
+            <div className={styles.seriesIcons}>
+              <img src={triumphantSeries} onClick={filterSetA2a} width={230} />
+            </div>
 
-          <div className={styles.seriesIcons}>
-            <img onClick={filterSetPA} src={promoA} alt="promo-A pack" />
-            <p onClick={filterSetPA}>Promo-A</p>
+            <div className={styles.seriesIcons}>
+              <img onClick={filterSetPA} src={promoA} alt="promo-A pack" />
+            </div>
           </div>
         </div>
+        {/* filter packs */}
+        <div className={styles.filterPacks}>
+          <div className={styles.packIcons}>
+            <img src={MewTwoPackURL} onClick={filterPackMewTwo} height={150} alt="MewTwo Pack" />
+          </div>
 
-        <div>
-          <img src={MewTwoPackURL} onClick={filterPackMewTwo} height={150} alt="MewTwo Pack" />
-          <p onClick={filterPackMewTwo}>MewTwo</p>
+          <div className={styles.packIcons}>
+            <img src={CharizardPackURL} onClick={filterPackCharizard} height={150} alt="Charizard Pack" />
+          </div>
+
+          <div className={styles.packIcons}>
+            <img onClick={filterPackPikachu} alt="Pikachu Pack" src={PikachuPackURL} height={150} />
+          </div>
+
+          <div className={styles.packIcons}>
+            <img onClick={filterPackDialga} alt="Dialga Pack" src={dialgaPackURL} height={150} />
+          </div>
+
+          <div className={styles.packIcons}>
+            <img onClick={filterPackPalkia} alt="Palika Pack" src={pakiyaPackURL} height={150} />
+          </div>
+
+          <div className={styles.packIcons}>
+            <img onClick={filterPackTriumphantLight} alt="Triumphant Light Pack" src={TriumphantLightPackURL} height={150} />
+          </div>
+
+          <div className={styles.packIcons}>
+            <img src={MythIslandURL} onClick={filterPackMythical} height={150} />
+          </div>
+
+          <div className={styles.packIcons}>
+            <img src={EveryPack} alt="every pack" onClick={filterEveryPack} height={150} />
+          </div>
+          <button onClick={() => setToggleRefresh(prev => prev + 1)}>refresh</button>
         </div>
-
-        <div>
-          <img src={CharizardPackURL} onClick={filterPackCharizard} height={150} alt="Charizard Pack" />
-          <p onClick={filterPackCharizard}>Charizard</p>
-        </div>
-
-        <div>
-          <img onClick={filterPackPikachu} alt="Pikachu Pack" src={PikachuPackURL} height={150} />
-          <p onClick={filterPackPikachu}>Pikachu</p>
-        </div>
-
-        <div>
-          <img onClick={filterPackDialga} alt="Dialga Pack" src={dialgaPackURL} height={150} />
-          <p onClick={filterPackDialga}>Dialga Pack</p>
-        </div>
-
-        <div>
-          <img onClick={filterPackPalkia} alt="Palika Pack" src={pakiyaPackURL} height={150} />
-          <p onClick={filterPackPalkia}>Palika Pack</p>
-        </div>
-
-        <div>
-          <img src={MythIslandURL} onClick={filterPackMythical} height={150} />
-          <p onClick={filterPackMythical}>Mythical Island</p>
-        </div>
-
-        <button onClick={filterEveryPack}>Every Pack</button>
-        <button onClick={() => setToggleRefresh(prev => prev + 1)}>refresh</button>
       </div>
       <div className={styles.container} >
         {cards.map((card, index) => (
