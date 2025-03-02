@@ -1,3 +1,5 @@
+/* Fixed the CSS issues and improved responsiveness */
+
 body {
   padding: 0;
   margin: 0;
@@ -7,118 +9,231 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* Start with 2 columns on smallest screens */
+  gap: 8px; /* Smaller gap for mobile */
+  padding: 10px;
   height: 100%;
 }
 
 .main_div {
-  /* background-image: url("../assets/bg-1.jpg"); */
   background-color: rgba(255, 255, 255, 0.909);
-  max-width: 100%s;
+  max-width: 100%;
+  padding: 10px;
 }
 
+/* Fixed the filter section layout for better responsiveness */
 .filterButtons {
-  display: grid;
-  grid-template-areas:
-    "rarity series"
-    "packs packs";
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .rarityIcons {
   display: flex;
-  margin-left: 2rem;
-  box-shadow: 0px 0px 20px #c2c2c2;
-  /* border: 1px solid green; */
-  width: 7vw;
-  height: 3vh;
-  border-radius: 20px;
   justify-content: center;
   align-items: center;
-  padding: 0.8rem 0;
+  box-shadow: 0px 0px 10px #c2c2c2;
+  padding: 0.5rem;
+  border-radius: 20px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+  height: 40px;
+  width: 80%;
 }
 
 .filterPacks {
   display: flex;
-  /* box-shadow: 0px 0px 20px #c2c2c2; */
-  /* border: 1px solid green; */
-  justify-content: space-around;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
   padding: 10px;
-  grid-area: packs;
+  margin-top: 10px;
 }
 
 .filterRarity {
-  /* border: 1px solid orange; */
-  grid-area: rarity;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
 }
 
 .filterSeries {
-  grid-area: series;
-  /* border: 1px solid black; */
-  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0;
 }
 
-.seriesIcons {
-  margin: 6px;
-}
-
+.seriesIcons,
 .packIcons {
+  transition: transform 0.2s ease;
+  margin: 5px;
+}
+
+.seriesIcons img {
+  max-width: 100%;
+  height: auto;
+  max-height: 60px;
+}
+
+.packIcons img {
+  max-height: 150px;
+  width: auto;
+}
+
+.rarityIcons:hover,
+.seriesIcons:hover,
+.packIcons:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* Refresh button styling */
+.refreshButton {
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
   margin: 10px;
 }
 
-.rarityIcons:hover {
-  cursor: pointer;
-  transform: scale(1.1);
+.refreshButton:hover {
+  background-color: #2980b9;
 }
 
-.seriesIcons:hover {
-  cursor: pointer;
-  transform: scale(1.1);
+.activeFilter {
+  border: 1px solid #c2c2c2;
+  box-shadow: 0 0 10px rgba(59, 59, 59, 0.5);
+  background-color: rgba(124, 124, 124, 0.336);
 }
 
-.packIcons:hover {
-  cursor: pointer;
-  transform: scale(1.1);
+/* Empty state styling */
+.emptyState {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 20px 0;
 }
 
-@media only screen and (min-width: 443px) {
+/* Media Queries - Card container responsiveness */
+/* Starting with mobile-first approach */
+@media only screen and (min-width: 320px) {
   .container {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+    gap: 6px;
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .container {
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* 3 columns on typical mobile phones */
+    gap: 6px;
+  }
+}
+
+@media only screen and (min-width: 425px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on larger phones */
+    gap: 8px;
   }
 }
 
 @media only screen and (min-width: 600px) {
   .container {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(
+      4,
+      1fr
+    ); /* Maintain 4 columns on small tablets */
+    gap: 10px;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
+    gap: 10px;
   }
-}
-@media only screen and (min-width: 1024px) {
-  .container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  .filterButtons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .filterRarity {
+    width: 48%;
+  }
+
+  .filterSeries {
+    width: 48%;
+  }
+
+  .filterPacks {
+    width: 100%;
   }
 }
 
-@media only screen and (min-width: 1244px) {
+@media only screen and (min-width: 1024px) {
   .container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(
+      4,
+      1fr
+    ); /* 4 columns on larger tablets/small desktops */
   }
 }
 
 @media only screen and (min-width: 1386px) {
   .container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr); /* 6 columns on large desktops */
+  }
+}
+
+/* Mobile-specific adjustments */
+@media only screen and (max-width: 600px) {
+  .filterRarity {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .packIcons img {
+    max-height: 90px; /* Smaller pack images on mobile */
+  }
+
+  .seriesIcons img {
+    max-height: 30px; /* Smaller series icons on mobile */
+  }
+
+  .rarityIcons {
+    padding: 0.3rem;
+    height: 30px; /* Smaller rarity icons on mobile */
+  }
+
+  .rarityIcons img {
+    height: 18px;
+    width: auto;
+  }
+}
+
+/* Ultra small devices (smaller than iPhone SE) */
+@media only screen and (max-width: 320px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+    gap: 5px;
+  }
+
+  .filterRarity {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

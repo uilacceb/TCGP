@@ -112,3 +112,35 @@
 .addToCart:hover {
   cursor: pointer;
 }
+
+/* Media Queries - Card container responsiveness */
+@media only screen and (max-width: 600px) {
+  .image {
+    height: 100px;
+  }
+  .addDelete {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1244px) {
+}
+
+@media only screen and (min-width: 1386px) {
+}
+
+/* Mobile-specific adjustments */
+@media only screen and (max-width: 600px) {
+}
