@@ -17,7 +17,6 @@ import triumphantSeries from "../../assets/triumphant light.png";
 import TriumphantLightPackURL from "../../assets/Triumphant Light Pack.png";
 import EveryPack from "../../assets/boosterPack.png";
 import { FaAngleUp } from "react-icons/fa6";
-import { Link } from "react-router-dom"
 
 const PokemonCard = () => {
   // Store the entire array of data in state (use an empty array as default).
@@ -26,7 +25,6 @@ const PokemonCard = () => {
   const [activeFilter, setActiveFilter] = useState("all"); // Track active filter for UI feedback
   const [isVisible, setIsVisible] = useState(true) //scroll to top trigger
   const [selectedImage, setSelectedImage] = useState(null); //detail pages
-  const [isOpen, setIsOpen] = useState(false)
 
   const pakiyaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/7/7b/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Palkia2.png?width=960";
   const dialgaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/5/56/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Dialga1.png?width=2240";
@@ -169,6 +167,31 @@ const PokemonCard = () => {
   const showDetail = (card) => {
     setSelectedImage(card);
     console.log(selectedImage)
+  }
+
+  const getRarity = (rarity) => {
+    switch (rarity) {
+      case "◊":
+        return <img src={rarityDiamond} />
+      case "◊◊":
+        return <><img src={rarityDiamond} /><img src={rarityDiamond} /></>
+      case "◊◊◊":
+        return <><img src={rarityDiamond} /><img src={rarityDiamond} /><img src={rarityDiamond} /></>
+      case "◊◊◊◊":
+        return <><img src={rarityDiamond} /><img src={rarityDiamond} /><img src={rarityDiamond} /><img src={rarityDiamond} /></>
+      case "☆":
+        return <img src={rarityStar} />
+      case "☆☆":
+        return <><img src={rarityStar} /><img src={rarityStar} /></>
+      case "☆☆☆":
+        return <><img src={rarityStar} /><img src={rarityStar} /><img src={rarityStar} /></>
+      case "Crown Rare":
+        return <img src={rarityCrown} />
+      case "":
+        return "N/A"
+      default:
+        return "N/A"
+    }
   }
 
   return (
@@ -350,6 +373,7 @@ const PokemonCard = () => {
               <p>HP: <strong>{selectedImage.hp}</strong></p>
               <p>Card type: <strong>{selectedImage.card_type}</strong></p>
               <p>Artist: <strong>{selectedImage.artist}</strong></p>
+              <p>Rarity: <strong>{getRarity(selectedImage.rarity)}</strong></p>
             </div>
             <button onClick={() => setSelectedImage(null)} className={styles.closeButton}>
               Close

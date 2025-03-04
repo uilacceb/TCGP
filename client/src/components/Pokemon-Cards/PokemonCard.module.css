@@ -18,10 +18,9 @@
 }
 
 .modalContent {
-  background-color: rgba(236, 236, 236, 0.951);
-  padding: 50px;
+  background-color: rgba(255, 255, 255, 0.887);
+  padding: 20px;
   border-radius: 10px;
-  width: 23%;
   max-width: 80%;
   max-height: 90%;
   overflow: auto;

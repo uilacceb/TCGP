@@ -58,15 +58,17 @@
 .name,
 .price {
   font-family: "Roboto";
-  font-weight: 400;
-  font-size: 0.9rem;
+  font-weight: 600;
   margin: 0;
   padding-bottom: 5px;
+  font-size: 1.1rem;
+  padding-top: 10px;
 }
 
 .price {
   font-weight: 500;
   font-size: 0.9rem;
+  margin-bottom: 5px;
 }
 
 .addDelete {

@@ -21,7 +21,7 @@ const SingleCard = ({ src, name, id, rarity, type, onClick }) => {
         return 5000
       case "☆☆☆":
         return 8000
-      case "♕":
+      case "Crown Rare":
         return 10000
       case "":
         return 100
