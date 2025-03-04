@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from "./pokemonDetails.module.css"
 
-const PokemonDetail = () => {
+const PokemonDetail = ({ src, name, id, rarity, type }) => {
   const [pokemon, setPokemon] = useState(null)
 
   const testApi = "https://raw.githubusercontent.com/uilacceb/tcgp-cards/refs/heads/main/A1.json"
@@ -17,12 +17,14 @@ const PokemonDetail = () => {
     }
   }
 
+  
+
   return (
     <>
       <div className={styles.detailContainer}>
         <button className={styles.button} onClick={fetchPokemon}>fetch pokemon</button>
-        {pokemon  ? (
-          <img src={pokemon[36].image} alt="Pokemon" />
+        {pokemon ? (
+          <img src={src} alt="Pokemon" />
         ) : (
           <p>Click the button to fetch a Pokemon</p>
         )}

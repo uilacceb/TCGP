@@ -17,13 +17,15 @@ import triumphantSeries from "../../assets/triumphant light.png";
 import TriumphantLightPackURL from "../../assets/Triumphant Light Pack.png";
 import EveryPack from "../../assets/boosterPack.png";
 import { FaAngleUp } from "react-icons/fa6";
+import { Link } from "react-router-dom"
 
 const PokemonCard = () => {
   // Store the entire array of data in state (use an empty array as default).
   const [cards, setCards] = useState([]);
   const [toggleRefresh, setToggleRefresh] = useState(0);
   const [activeFilter, setActiveFilter] = useState("all"); // Track active filter for UI feedback
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(true) //scroll to top trigger
+  const [isOpen, setIsOpen] = useState(false); //detail pages
 
   const pakiyaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/7/7b/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Palkia2.png?width=960";
   const dialgaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/5/56/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Dialga1.png?width=2240";
@@ -309,7 +311,6 @@ const PokemonCard = () => {
           </div>
         )
       }
-
       <div className={styles.container}>
         {cards.map((card, index) => (
           <SingleCard
