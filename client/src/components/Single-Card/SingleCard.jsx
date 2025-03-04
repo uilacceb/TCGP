@@ -2,7 +2,7 @@ import styles from "./SingleCard.module.css"
 import AddToCard from "../../assets/add-to-cart.png"
 import { useState } from "react"
 
-const SingleCard = ({ src, name, id, rarity, type }) => {
+const SingleCard = ({ src, name, id, rarity, type, onClick }) => {
   const [quantity, setQuantity] = useState(1);
 
   const getPrice = (rarity) => {
@@ -46,7 +46,7 @@ const SingleCard = ({ src, name, id, rarity, type }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageDiv}>
+      <div className={styles.imageDiv} onClick={onClick}>
         <img
           src={src}
           alt={name ?? `Card-${id}`}

@@ -25,7 +25,8 @@ const PokemonCard = () => {
   const [toggleRefresh, setToggleRefresh] = useState(0);
   const [activeFilter, setActiveFilter] = useState("all"); // Track active filter for UI feedback
   const [isVisible, setIsVisible] = useState(true) //scroll to top trigger
-  const [isOpen, setIsOpen] = useState(false); //detail pages
+  const [selectedImage, setSelectedImage] = useState(null); //detail pages
+  const [isOpen, setIsOpen] = useState(false)
 
   const pakiyaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/7/7b/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Palkia2.png?width=960";
   const dialgaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/5/56/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Dialga1.png?width=2240";
@@ -164,6 +165,11 @@ const PokemonCard = () => {
   const handleRefresh = () => {
     setToggleRefresh(prev => prev + 1);
   };
+
+  const showDetail = (card) => {
+    setSelectedImage(card);
+    console.log(selectedImage)
+  }
 
   return (
     <div className={styles.main_div}>
@@ -320,6 +326,7 @@ const PokemonCard = () => {
             name={card.name}
             rarity={card.rarity}
             type={card.attacks[0]?.cost[0]}
+            onClick={() => showDetail(card)}
           />
         ))}
       </div>
@@ -330,6 +337,27 @@ const PokemonCard = () => {
           style={{ display: isVisible ? "block" : "none", }}
           onClick={scrollToTop}><FaAngleUp size={50} /></button>
       </div>
+      {selectedImage && (
+        <div className={styles.selectedCardModal}>
+          <div className={styles.modalContent}>
+            <img
+              src={selectedImage.image}
+              alt={selectedImage.name}
+              className={styles.selectedCardImage}
+            />
+            <div className={styles.cardDetails}>
+              <h2>{selectedImage.name}</h2>
+              <p>HP: <strong>{selectedImage.hp}</strong></p>
+              <p>Card type: <strong>{selectedImage.card_type}</strong></p>
+              <p>Artist: <strong>{selectedImage.artist}</strong></p>
+            </div>
+            <button onClick={() => setSelectedImage(null)} className={styles.closeButton}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
     </div >
   );
 };
