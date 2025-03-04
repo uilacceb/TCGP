@@ -147,7 +147,7 @@ const PokemonCard = () => {
   const filterPackPalkia = () => fetchAndFilterPack("Palkia pack");
   const filterPackMythical = () => fetchAndFilterPack("Mew pack");
   const filterPackTriumphantLight = () => fetchAndFilterPack("Arceus pack");
-  const filterEveryPack = () => fetchAndFilterPack("Every pack");
+  // const filterEveryPack = () => fetchAndFilterPack("Every pack");
 
   // --- Buttons for filtering rarities ---
   const filterThreeStarPack = () => filterRarityCard("☆☆☆");
@@ -259,60 +259,56 @@ const PokemonCard = () => {
         {/* filter packs */}
         <div className={styles.filterPacks}>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Mewtwo pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img src={MewTwoPackURL} onClick={filterPackMewTwo} height={150} alt="MewTwo Pack" />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Charizard pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img src={CharizardPackURL} onClick={filterPackCharizard} height={150} alt="Charizard Pack" />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Pikachu pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img onClick={filterPackPikachu} alt="Pikachu Pack" src={PikachuPackURL} height={150} />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Dialga pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img onClick={filterPackDialga} alt="Dialga Pack" src={dialgaPackURL} height={150} />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Palkia pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img onClick={filterPackPalkia} alt="Palika Pack" src={pakiyaPackURL} height={150} />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Arceus pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img onClick={filterPackTriumphantLight} alt="Triumphant Light Pack" src={TriumphantLightPackURL} height={150} />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Mew pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
             <img src={MythIslandURL} onClick={filterPackMythical} height={150} alt="Mew Pack" />
           </div>
           <div
-            className={`${styles.packIcons} ${activeFilter === "pack-Every pack" ? styles.activeFilter : ""}`}
+            className={styles.packIcons}
           >
-            <img src={EveryPack} alt="every pack" onClick={filterEveryPack} height={150} />
+            <img src={EveryPack} alt="all packs" onClick={handleRefresh} height={150} />
           </div>
-          <button
-            className={styles.refreshButton}
-            onClick={handleRefresh}
-          >
-            Refresh Cards
-          </button>
         </div>
       </div>
 
       {/* Show loading state or empty state */}
-      {cards.length === 0 && (
-        <div className={styles.emptyState}>
-          <p>No cards found. Try another filter or refresh.</p>
-        </div>
-      )}
+      {
+        cards.length === 0 && (
+          <div className={styles.emptyState}>
+            <p>No cards found. Try another filter or refresh.</p>
+          </div>
+        )
+      }
 
       <div className={styles.container}>
         {cards.map((card, index) => (

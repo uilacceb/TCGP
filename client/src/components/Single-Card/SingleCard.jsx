@@ -54,7 +54,6 @@ const SingleCard = ({ src, name, id, rarity, type }) => {
         />
       </div>
       <div className={styles.info}>
-
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.price}>Price: ${price}</p>
         {/* <p className={styles.rarity}>Rarity: {rarity}</p>
