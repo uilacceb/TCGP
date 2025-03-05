@@ -58,6 +58,7 @@
   min-width: 50%;
   margin: 20px;
   font-size: 2rem;
+  font-weight: 700;
   display: flex;
   flex-direction: column;
 }
@@ -69,4 +70,68 @@
 
 .loginHere:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 1367px) {
+  .container {
+    margin-bottom: 10px;
+  }
+  .signUpForm {
+    width: 60%;
+    height: 90%;
+    padding-bottom: 20px;
+  }
+  .inputStyle {
+    border-radius: 5px;
+    border: 1px slategray solid;
+    width: 90%;
+    height: 20px;
+  }
+  .element {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 1024px) {
+  .signUpForm {
+    width: 60%;
+    height: 90%;
+    padding-bottom: 20px;
+  }
+  .inputStyle {
+    border-radius: 5px;
+    border: 1px slategray solid;
+    width: 90%;
+    height: 20px;
+  }
+  .element {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  p {
+    padding-bottom: 10px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .signUpForm {
+    width: 90%;
+    height: 90%;
+    padding-bottom: 20px;
+    padding-top: 10px;
+  }
+
+  .inputStyle {
+    border-radius: 5px;
+    border: 1px slategray solid;
+    width: 90%;
+    height: 20px;
+  }
+  .element {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
 }
