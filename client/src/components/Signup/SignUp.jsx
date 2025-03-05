@@ -13,6 +13,11 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setError("passwords do not match")
+      return
+    }
+
     try {
       await axios.post("http://localhost:8080/auth/register", {
         username,
@@ -25,6 +30,8 @@ const SignUp = () => {
       setError(err.response.data.message)
     }
   }
+
+
 
   return (
     <div className={styles.container}>

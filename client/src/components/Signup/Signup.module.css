@@ -15,6 +15,7 @@
   padding: 10px;
   font-size: 2rem;
   border: 1px slategray solid;
+  caret-color: auto;
 }
 
 .container {

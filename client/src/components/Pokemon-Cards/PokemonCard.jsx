@@ -339,14 +339,6 @@ const PokemonCard = () => {
         </div>
       </div>
 
-      {/* Show loading state or empty state */}
-      {
-        cards.length === 0 && (
-          <div className={styles.emptyState}>
-            <p>No cards found. Try another filter or refresh.</p>
-          </div>
-        )
-      }
       {isLoading ? (<div className={styles.loadingState}><p>Fetching pokemon...</p></div>) : <div className={styles.container}>
         {cards.map((card, index) => (
           <SingleCard
