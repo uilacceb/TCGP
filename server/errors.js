@@ -1,5 +1,5 @@
 export const UserErrors = {
-  NO_USER_FOUND: "no-user-found",
-  WRONG_CREDENTIALS: "wrong-credentials",
-  USERNAME_ALREADY_EXISTS: "username-already-exists"
+  NO_USER_FOUND: "No User Found",
+  WRONG_CREDENTIALS: "Wrong Credentials",
+  USERNAME_ALREADY_EXISTS: "Username Already Exists"
 }
