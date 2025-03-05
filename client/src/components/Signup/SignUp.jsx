@@ -10,7 +10,7 @@ const SignUp = () => {
         <button className={styles.closeButton} height={50} width={60} onClick={() => navigate("/")}>x</button>
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
-          <label>Email:</label>
+          <label>Username:</label>
           <input className={styles.inputStyle} type="text" />
         </div>
         <div className={styles.element}>
@@ -22,7 +22,7 @@ const SignUp = () => {
           <input className={styles.inputStyle} type="password" />
         </div>
         <p>Already have an account? <span className={styles.loginHere} onClick={() => navigate("/login")}>Login here</span></p>
-        <button className={styles.signUpButton}>Sign up</button>
+        <button className={styles.signUpButton}>Register</button>
       </form>
     </div>
   )
