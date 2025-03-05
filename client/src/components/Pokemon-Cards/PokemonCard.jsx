@@ -25,6 +25,8 @@ const PokemonCard = () => {
   const [activeFilter, setActiveFilter] = useState("all"); // Track active filter for UI feedback
   const [isVisible, setIsVisible] = useState(true) //scroll to top trigger
   const [selectedImage, setSelectedImage] = useState(null); //detail pages
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const pakiyaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/7/7b/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Palkia2.png?width=960";
   const dialgaPackURL = "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-tcg-pocket/5/56/Pokemon_TCG_Pocket_Space-Time_Smackdown_Booster_Pack_Dialga1.png?width=2240";
@@ -34,8 +36,10 @@ const PokemonCard = () => {
     (async () => {
       try {
         // fetchAllCards returns an object like { A1: [...], A1a: [...], A2: [...], PA: [...] }
+        setIsLoading(true)
         const data = await fetchAllCards();
-        // If you want all cards in one array, just combine them:
+
+        //combine all cards in an array
         const combined = [
           ...data.A1,
           ...data.A1a,
@@ -47,8 +51,11 @@ const PokemonCard = () => {
         setActiveFilter("all");
       } catch (error) {
         console.error("Error fetching cards:", error);
+      } finally {
+        setIsLoading(false)
       }
-    })();
+    })
+      ();
   }, [toggleRefresh]);
 
   //toggle scroll to top button visibility
@@ -340,7 +347,7 @@ const PokemonCard = () => {
           </div>
         )
       }
-      <div className={styles.container}>
+      {isLoading ? (<div className={styles.loadingState}><p>Fetching pokemon...</p></div>) : <div className={styles.container}>
         {cards.map((card, index) => (
           <SingleCard
             key={index}
@@ -352,7 +359,8 @@ const PokemonCard = () => {
             onClick={() => showDetail(card)}
           />
         ))}
-      </div>
+      </div>}
+
       <div >
         <button
           className={`${styles.scrollToTop} ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
