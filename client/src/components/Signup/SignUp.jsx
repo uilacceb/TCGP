@@ -7,7 +7,7 @@ const SignUp = () => {
   return (
     <div className={styles.container}>
       <form className={styles.signUpForm}>
-        <button className={styles.closeButton} height={50} width={60}>x</button>
+        <button className={styles.closeButton} height={50} width={60} onClick={() => navigate("/")}>x</button>
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
           <label>Email:</label>
@@ -15,6 +15,10 @@ const SignUp = () => {
         </div>
         <div className={styles.element}>
           <label>Password:</label>
+          <input className={styles.inputStyle} type="password" />
+        </div>
+        <div className={styles.element}>
+          <label>Confirm Password:</label>
           <input className={styles.inputStyle} type="password" />
         </div>
         <p>Already have an account? <span className={styles.loginHere} onClick={() => navigate("/login")}>Login here</span></p>

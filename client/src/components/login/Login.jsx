@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <form className={styles.loginForm}>
-        <button className={styles.closeButton} height={50} width={60}>x</button>
+        <button className={styles.closeButton} height={50} width={60} onClick={() => navigate("/")}>x</button>
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
           <label>Email:</label>

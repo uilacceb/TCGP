@@ -50,6 +50,10 @@
   align-items: center;
 }
 
+.loginButton:hover {
+  background-color: #dadada;
+}
+
 .element {
   min-width: 50%;
   margin: 20px;

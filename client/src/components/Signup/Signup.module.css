@@ -1,7 +1,7 @@
 .signUpForm {
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: 90%;
   min-width: 50%;
   justify-content: center;
   align-items: center;
@@ -48,6 +48,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.signUpButton:hover {
+  background-color: #dadada;
 }
 
 .element {
