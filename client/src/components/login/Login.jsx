@@ -1,17 +1,20 @@
 import styles from "../login/Login.module.css"
 import loginLogo from "../../assets/Pokemon_25th_Anniversary_Logo.png"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios"
 import { useCookies } from "react-cookie"
 import { UserErrors } from "../../errors"
+import { AuthContext } from "../../App"
 
 const Login = () => {
   const navigate = useNavigate()
-  const [username, setUserName] = useState("")
+
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [_, setCookies] = useCookies(["access_token"]) //ignore the value of the cookie
+
+  const { setIsLoggedIn, setUsername, username } = useContext(AuthContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +30,7 @@ const Login = () => {
       if (token) {
         localStorage.setItem("token", token); // Store token in local storage
         alert("Login successfully");
+        setIsLoggedIn(true)
         navigate("/");
       }
 
@@ -52,7 +56,7 @@ const Login = () => {
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
           <label>Username:</label>
-          <input className={styles.inputStyle} type="text" onChange={(e) => setUserName(e.target.value)} value={username} />
+          <input className={styles.inputStyle} type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
         </div>
         <div className={styles.element}>
           <label>Password:</label>
