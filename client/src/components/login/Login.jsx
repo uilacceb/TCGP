@@ -42,7 +42,7 @@ const Login = () => {
         default:
           errorMessage = "Something went wrong"
       }
-      alert("Error: " + errorMessage)
+      setError(errorMessage)
     }
   }
   return (
