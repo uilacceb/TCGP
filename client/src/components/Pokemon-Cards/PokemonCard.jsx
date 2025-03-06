@@ -17,6 +17,7 @@ import triumphantSeries from "../../assets/triumphant light.png";
 import TriumphantLightPackURL from "../../assets/Triumphant Light Pack.png";
 import EveryPack from "../../assets/boosterPack.png";
 import { FaAngleUp } from "react-icons/fa6";
+import ProductModel from "../../ProductModel";
 
 const PokemonCard = () => {
   // Store the entire array of data in state (use an empty array as default).
@@ -46,7 +47,7 @@ const PokemonCard = () => {
           ...data.A2,
           ...data.PA,
           ...data.A2a
-        ];
+        ].map(card => new ProductModel(card));
         setCards(combined);
         setActiveFilter("all");
       } catch (error) {
@@ -87,7 +88,7 @@ const PokemonCard = () => {
         ...data.A2a
       ];
 
-      const filtered = combined.filter(
+      const filtered = combined.map(card => new ProductModel(card)).filter(
         (card) => card.rarity === filterValue
       );
       setCards(filtered);
@@ -109,7 +110,7 @@ const PokemonCard = () => {
         ...data.A2a
       ];
 
-      const filtered = combined.filter(
+      const filtered = combined.map(card => new ProductModel(card)).filter(
         (card) => card.set_details === filterValue
       );
       setCards(filtered);
@@ -130,7 +131,7 @@ const PokemonCard = () => {
         ...data.A2a
       ];
 
-      const filtered = combined.filter(
+      const filtered = combined.map(card => new ProductModel(card)).filter(
         (card) => card.pack === filterValue
       );
       setCards(filtered);
@@ -343,11 +344,11 @@ const PokemonCard = () => {
         {cards.map((card, index) => (
           <SingleCard
             key={index}
-            src={card.image}
+            src={card.imageURL}
             id={card.id}
-            name={card.name}
+            name={card.productName}
             rarity={card.rarity}
-            type={card.attacks[0]?.cost[0]}
+            price={card.price}
             onClick={() => showDetail(card)}
           />
         ))}
@@ -364,15 +365,14 @@ const PokemonCard = () => {
         <div className={styles.selectedCardModal}>
           <div className={styles.modalContent}>
             <img
-              src={selectedImage.image}
+              src={selectedImage.imageURL}
               alt={selectedImage.name}
               className={styles.selectedCardImage}
             />
             <div className={styles.cardDetails}>
-              <h2>{selectedImage.name}</h2>
-              <p>HP: <strong>{selectedImage.hp}</strong></p>
+              <h2>{selectedImage.productName}</h2>
+              <p>HP: <strong>{selectedImage.hp === 0 ? "N/A" : selectedImage.hp}</strong></p>
               <p>Card type: <strong>{selectedImage.card_type}</strong></p>
-              <p>Artist: <strong>{selectedImage.artist}</strong></p>
               <p>Rarity: <strong>{getRarity(selectedImage.rarity)}</strong></p>
             </div>
             <button onClick={() => setSelectedImage(null)} className={styles.closeButton}>

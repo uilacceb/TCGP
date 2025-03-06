@@ -2,33 +2,10 @@ import styles from "./SingleCard.module.css"
 import AddToCard from "../../assets/add-to-cart.png"
 import { useState } from "react"
 
-const SingleCard = ({ src, name, id, rarity, type, onClick }) => {
+const SingleCard = ({ src, name, id, onClick, price }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const getPrice = (rarity) => {
-    switch (rarity) {
-      case "◊":
-        return 200
-      case "◊◊":
-        return 500
-      case "◊◊◊":
-        return 1000
-      case "◊◊◊◊":
-        return 2000
-      case "☆":
-        return 3000
-      case "☆☆":
-        return 5000
-      case "☆☆☆":
-        return 8000
-      case "Crown Rare":
-        return 10000
-      case "":
-        return 100
-      default:
-        return 100
-    }
-  }
+
   const handleInputChange = (e) => {
     let input = e.target.value
     let numericValue = input.replace(/[^0-9]/g, "");
@@ -42,7 +19,7 @@ const SingleCard = ({ src, name, id, rarity, type, onClick }) => {
     setQuantity(prev => prev - 1)
   }
 
-  const price = getPrice(rarity)
+
 
   return (
     <div className={styles.container}>
