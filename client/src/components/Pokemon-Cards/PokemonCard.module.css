@@ -187,7 +187,7 @@ body {
   transition-duration: 300;
 }
 
-.loadingState{
+.loadingState {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -265,10 +265,19 @@ body {
     gap: 5px;
   }
 }
-
-@media only screen and (min-width: 1386px) {
+@media only screen and (min-width: 1300px) {
   .container {
-    grid-template-columns: repeat(6, 1fr); /* 6 columns on large desktops */
+    grid-template-columns: repeat(
+      4,
+      1fr
+    ); /* 4 columns on larger tablets/small desktops */
+    gap: 5px;
+  }
+}
+
+@media only screen and (min-width: 1660px) {
+  .container {
+    grid-template-columns: repeat(5, 1fr); /* 5 columns on large desktops */
   }
 }
 

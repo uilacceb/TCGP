@@ -3,6 +3,7 @@ import { UserErrors } from "../errors.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
+
 export const register = async (req, res) => {
   const { username, password } = req.body;
 
@@ -31,8 +32,10 @@ export const login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(400).json({ message: UserErrors.WRONG_CREDENTIALS })
     }
+    //jwt sign
+    const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET)
+    console.log(token)
 
-    const token = jwt.sign({ id: user._id }, `${process.env.SECRET}`)
     res.status(200).json({ token, userID: user._id })
   } catch (error) {
     res.status(500).json({ message: error })
@@ -43,13 +46,13 @@ export const login = async (req, res) => {
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
-    jwt.verify(authHeader, `${process.env.SECRET}`, (err) => {
+    jwt.verify(authHeader, process.env.ACCESS_TOKEN_SECRET, (err) => {
       if (err) {
-        return res.sendStatus(403)
+        return res.status(403).json({ message: err })
       }
-      next();
-    })
-  }
 
-  return res.sendStatus(401);
-}
+      next();
+    });
+  }
+  return res.status(401).json();
+};
