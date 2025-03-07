@@ -38,7 +38,7 @@ const Login = () => {
 
     } catch (err) {
       let errorMessage = "";
-      switch (err.response.data.message) {
+      switch (err.response?.data?.message) {
         case UserErrors.NO_USER_FOUND:
           errorMessage = "User not found"
           break;
@@ -65,7 +65,9 @@ const Login = () => {
           <input className={styles.inputStyle} type="password" onChange={(e) => setPassword(e.target.value)} value={password} />
         </div>
         <p>Doesn&#39;t have an account? <span onClick={() => navigate("/sign-up")} className={styles.SignUpHere}>Register here</span></p>
-        <button className={styles.loginButton}>login</button>
+        <button className={styles.loginButton} onKeyDown={(e) => {
+          if (e.key == "Enter") handleSubmit();
+        }}>login</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>

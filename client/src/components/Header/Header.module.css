@@ -49,6 +49,14 @@
   background-color: rgba(204, 204, 204, 0.627);
 }
 
+.availableMoney {
+  font-size: 1rem;
+}
+
+.loginIcon {
+  margin-right: 1.5rem;
+}
+
 /* @media (max-width: 768px) {
   .cartImage {
     max-height: 30px;
