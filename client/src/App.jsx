@@ -4,6 +4,8 @@ import Layout from "./components/Layout"
 import Login from "./components/login/Login";
 import SignUp from "./components/Signup/SignUp";
 import { createContext, useState } from "react";
+import { LandingPage } from "./components/LandingPage/LandingPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 export const AuthContext = createContext()
@@ -16,7 +18,12 @@ function App() {
       <BrowserRouter>
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, username, setUsername }}>
           <Routes>
-            <Route path="/" element={<Layout><PokemonCard /></Layout>} />
+            <Route path="/" element={<Layout><LandingPage /></Layout>} />
+            <Route path="/pokemonCards" element={
+              <ProtectedRoute>
+                <Layout><PokemonCard /></Layout>
+              </ProtectedRoute>
+            } />
             <Route path="/login" element={<Layout><Login /></Layout>} />
             <Route path="/sign-up" element={<Layout><SignUp /></Layout>} />
           </Routes>

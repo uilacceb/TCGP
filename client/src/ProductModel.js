@@ -9,7 +9,7 @@ class ProductModel {
     this.hp = parseInt(cardData.hp) || 0;
     this.card_type = cardData.card_type;
     this.set_details = cardData.set_details;
-    this.pack = cardData.pack
+    this.pack = cardData.pack;
   }
 
 

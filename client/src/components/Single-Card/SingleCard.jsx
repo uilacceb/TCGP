@@ -2,7 +2,7 @@ import styles from "./SingleCard.module.css"
 import AddToCard from "../../assets/add-to-cart.png"
 import { useState } from "react"
 
-const SingleCard = ({ src, name, id, onClick, price }) => {
+const SingleCard = ({ src, name, id, onClick, price, stock }) => {
   const [quantity, setQuantity] = useState(1);
 
 
@@ -33,6 +33,7 @@ const SingleCard = ({ src, name, id, onClick, price }) => {
       <div className={styles.info}>
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.price}>Price: ${price}</p>
+        <p className={styles.stock}>Stock: {stock}</p>
         {/* <p className={styles.rarity}>Rarity: {rarity}</p>
         <p className={styles.type}>Type: {type}</p> */}
         <div className={styles.addDelete}>

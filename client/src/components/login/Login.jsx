@@ -9,7 +9,7 @@ import { AuthContext } from "../../App"
 
 const Login = () => {
   const navigate = useNavigate()
-
+  const [inputUsername, setInputUsername] = useState(""); // Renamed to avoid conflict
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [_, setCookies] = useCookies(["access_token"]) //ignore the value of the cookie
@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8080/auth/login", {
-        username,
+        username: inputUsername,
         password
       });
       const token = response.data.token; // Extract token from response
@@ -28,10 +28,12 @@ const Login = () => {
       console.log("Received Token:", token);
 
       if (token) {
-        localStorage.setItem("token", token); // Store token in local storage
-        alert("Login successfully");
+        localStorage.setItem("token", token); // Store username in local storage
+        localStorage.setItem("username", inputUsername); // Store username in local storage
+
+        setUsername(inputUsername);
         setIsLoggedIn(true)
-        navigate("/");
+        navigate("/pokemonCards");
       }
 
     } catch (err) {
@@ -56,7 +58,7 @@ const Login = () => {
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
           <label>Username:</label>
-          <input className={styles.inputStyle} type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
+          <input className={styles.inputStyle} type="text" onChange={(e) => setInputUsername(e.target.value)} value={inputUsername} />
         </div>
         <div className={styles.element}>
           <label>Password:</label>
