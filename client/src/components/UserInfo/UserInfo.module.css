@@ -1,0 +1,24 @@
+.userInfoCard {
+  min-width: 50%;
+  max-width: 80%;
+  height: 80%;
+  box-shadow: 0 0 30px #c2c2c2;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.username,
+.availableMoney,
+.cardsObtained {
+  width: 80%;
+  font-size: 2rem;
+}

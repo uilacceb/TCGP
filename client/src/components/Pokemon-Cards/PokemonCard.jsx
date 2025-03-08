@@ -174,7 +174,6 @@ const PokemonCard = () => {
 
   const showDetail = (card) => {
     setSelectedImage(card);
-    console.log(selectedImage)
   }
 
   const getRarity = (rarity) => {
@@ -373,7 +372,11 @@ const PokemonCard = () => {
             <div className={styles.cardDetails}>
               <h2>{selectedImage.productName}</h2>
               <p>HP: <strong>{selectedImage.hp === 0 ? "N/A" : selectedImage.hp}</strong></p>
-              <p>Card type: <strong>{selectedImage.card_type}</strong></p>
+              <p>ID: <strong>{selectedImage.cardId}</strong></p>
+              {/* <p>Attack Name: <strong>{selectedImage.effectName}</strong></p>
+              <p>Description: <strong>{selectedImage.effect}</strong></p> */}
+              {/* <p>Card type: <strong>{selectedImage.card_type}</strong></p> */}
+              <p>Pack: <strong>{selectedImage.pack.split(" ")[0]}</strong></p>
               <p>Rarity: <strong>{getRarity(selectedImage.rarity)}</strong></p>
             </div>
             <button onClick={() => setSelectedImage(null)} className={styles.closeButton}>

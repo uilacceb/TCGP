@@ -62,7 +62,46 @@ export const getUserInfo = async (req, res) => {
   try {
     const user = await User.findOne(req.params.username);
     res.status(200).json(user)
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching users: ', error });
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+export const getUserPurchase = async (req, res) => {
+  try {
+    const user = await User.findOne(req.params.username);
+    const purchaseItems = user.purchasedItems;
+    res.status(200).json(purchaseItems)
+  } catch (err) {
+    res.status(500).json({ message: err })
+  }
+}
+
+export const addToCart = async (req, res) => {
+  try {
+    const { username, cardId, name, price, quantity, image } = req.body;
+    const user = await User.findOne(req.params.username);
+    const existingItemIndex = user.purchasedItems.findIndex(item => item.cardId === cardId);
+    if (existingItemIndex !== -1) {
+      // Update quantity if item exists
+      user.purchasedItems[existingItemIndex].quantity += quantity;
+    } else {
+      // Add new item to cart
+      user.purchasedItems.push({
+        cardId,
+        name,
+        price,
+        quantity,
+        image
+      });
+    }
+    await user.save();
+
+    res.status(200).json({
+      message: "Item added to cart",
+      cartItems: user.purchasedItems
+    });
+  } catch (err) {
+    res.status(500).json({ message: err })
   }
 }

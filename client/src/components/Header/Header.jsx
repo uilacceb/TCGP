@@ -23,9 +23,9 @@ const Header = () => {
           </div>
         </> :
         <div className={styles.loginGroup}>
-          <button className={styles.loginButton}>
+          <button className={styles.loginButton} onClick={()=>navigate("/userInfo")}>
             <img className={styles.loginIcon} src={loginIcon} height={50} width={70} />
-            <div >
+            <div className={styles.userPreview}>
               <p >{`Welcome ${username}`}</p>
               <p className={styles.availableMoney}>${availableMoney}</p>
             </div>

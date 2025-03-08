@@ -7,6 +7,7 @@ import { createContext, useState } from "react";
 import { LandingPage } from "./components/LandingPage/LandingPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Checkout from "./components/Checkout/Checkout";
+import UserInfo from "./components/UserInfo/UserInfo";
 
 
 export const AuthContext = createContext()
@@ -14,11 +15,12 @@ export const AuthContext = createContext()
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("")
-  const [availableMoney, setAvailableMoney] = useState(0)
+  const [availableMoney, setAvailableMoney] = useState(0);
+  const [cardQuantity, setCardQuantity] = useState(0);
   return (
     <>
       <BrowserRouter>
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, username, setUsername, availableMoney, setAvailableMoney }}>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, username, setUsername, availableMoney, setAvailableMoney, cardQuantity, setCardQuantity }}>
           <Routes>
             <Route path="/" element={<Layout><LandingPage /></Layout>} />
             <Route path="/pokemonCards" element={
@@ -29,6 +31,11 @@ function App() {
             <Route path="/checkout" element={
               <ProtectedRoute>
                 <Layout><Checkout /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/userInfo" element={
+              <ProtectedRoute>
+                <Layout><UserInfo /></Layout>
               </ProtectedRoute>
             } />
             <Route path="/login" element={<Layout><Login /></Layout>} />

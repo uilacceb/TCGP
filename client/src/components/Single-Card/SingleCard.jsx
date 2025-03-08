@@ -13,10 +13,12 @@ const SingleCard = ({ src, name, id, onClick, price, stock }) => {
   }
 
   const addQuantity = () => {
-    setQuantity(prev => prev + 1)
+    quantity === stock ? setQuantity(stock) :
+      setQuantity(prev => prev + 1)
   }
   const subQuantity = () => {
-    setQuantity(prev => prev - 1)
+    quantity === 0 ? setQuantity(0) :
+      setQuantity(prev => prev - 1)
   }
 
 

@@ -30,7 +30,7 @@
 
 .loginButton {
   border: none;
-  padding: 10px 5px;
+  padding: 10px 10px;
   min-width: 10rem;
   max-width: 25rem;
   border-radius: 30px;
@@ -43,6 +43,12 @@
   align-items: center;
   background-color: rgb(51, 51, 51);
   color: white;
+  max-height: 12vh;
+}
+
+.userPreview {
+  justify-content: center;
+  align-items: center;
 }
 
 .loginButton:hover {
@@ -54,7 +60,7 @@
 }
 
 .loginIcon {
-  margin-right: 1.5rem;
+  margin-right: 0.9rem;
 }
 
 /* @media (max-width: 768px) {
