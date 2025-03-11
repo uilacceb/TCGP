@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema({
     default: 10000
   },
   purchasedItems: {
-    type: Array
+    type: Array,
+    default: []
   }
 })
 

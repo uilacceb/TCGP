@@ -42,19 +42,33 @@ export const login = async (req, res) => {
   }
 }
 
-//middleware
 export const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    jwt.verify(authHeader, process.env.ACCESS_TOKEN_SECRET, (err) => {
+  try {
+    const token = req.headers.authorization;
+    
+    // Log the token to help with debugging
+    console.log("Token received:", token);
+    
+    if (!token) {
+      console.log("No token provided");
+      return res.status(401).json({ message: "No token provided" });
+    }
+    
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) {
-        return res.status(403).json({ message: err })
+        console.log("Token verification failed:", err.message);
+        return res.status(403).json({ message: "Invalid token", error: err.message });
       }
-
+      
+      // Add decoded user info to request object
+      req.user = decoded;
+      console.log("Token verified successfully for user:", decoded.id);
       next();
     });
+  } catch (error) {
+    console.error("Error in verifyToken middleware:", error);
+    return res.status(500).json({ message: "Server error during authentication" });
   }
-  return res.status(401).json();
 };
 
 
@@ -72,35 +86,6 @@ export const getUserPurchase = async (req, res) => {
     const user = await User.findOne(req.params.username);
     const purchaseItems = user.purchasedItems;
     res.status(200).json(purchaseItems)
-  } catch (err) {
-    res.status(500).json({ message: err })
-  }
-}
-
-export const addToCart = async (req, res) => {
-  try {
-    const { username, cardId, name, price, quantity, image } = req.body;
-    const user = await User.findOne(req.params.username);
-    const existingItemIndex = user.purchasedItems.findIndex(item => item.cardId === cardId);
-    if (existingItemIndex !== -1) {
-      // Update quantity if item exists
-      user.purchasedItems[existingItemIndex].quantity += quantity;
-    } else {
-      // Add new item to cart
-      user.purchasedItems.push({
-        cardId,
-        name,
-        price,
-        quantity,
-        image
-      });
-    }
-    await user.save();
-
-    res.status(200).json({
-      message: "Item added to cart",
-      cartItems: user.purchasedItems
-    });
   } catch (err) {
     res.status(500).json({ message: err })
   }

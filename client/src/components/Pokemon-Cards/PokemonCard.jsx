@@ -201,6 +201,8 @@ const PokemonCard = () => {
     }
   }
 
+
+
   return (
     <div className={styles.main_div}>
       <div className={styles.filterButtons}>
@@ -344,7 +346,8 @@ const PokemonCard = () => {
           <SingleCard
             key={index}
             src={card.imageURL}
-            id={card.id}
+            id={index}
+            cardId={card.cardId}
             name={card.productName}
             rarity={card.rarity}
             price={card.price}
