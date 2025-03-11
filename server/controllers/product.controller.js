@@ -5,12 +5,12 @@ export const addToCart = async (req, res) => {
   try {
     const { cardId, productName, price, quantity, imageURL } = req.body;
 
-    // const userId = req.user.id  // This assumes verifyToken adds the decoded token to req.user
-    // const user = await User.findById(userId);
+    const userId = req.user.id  // This assumes verifyToken adds the decoded token to req.user
+    const user = await User.findById(userId);
 
 
-    const username = req.user.username
-    const user = await User.findOne(username);
+    // const username = req.user.username
+    // const user = await User.findOne(username);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -53,9 +53,9 @@ export const addToCart = async (req, res) => {
 // Get user's cart items
 export const getCartItems = async (req, res) => {
   try {
-    const { userID } = req.params;
+    const { username } = req.params;
 
-    const user = await User.findById(userID);
+    const user = await User.findOne({ username: username })
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

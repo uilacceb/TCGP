@@ -6,6 +6,6 @@ const productRouter = Router();
 
 // productRouter.post("/checkout", verifyToken, checkout);
 productRouter.post("/cart/add", verifyToken, addToCart);
-productRouter.get("/cart/:userID", verifyToken, getCartItems);
+productRouter.get("/cart/:username", verifyToken, getCartItems);
 
 export default productRouter;
