@@ -45,21 +45,21 @@ export const login = async (req, res) => {
 export const verifyToken = (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    
+
     // Log the token to help with debugging
     console.log("Token received:", token);
-    
+
     if (!token) {
       console.log("No token provided");
       return res.status(401).json({ message: "No token provided" });
     }
-    
+
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
       if (err) {
         console.log("Token verification failed:", err.message);
         return res.status(403).json({ message: "Invalid token", error: err.message });
       }
-      
+
       // Add decoded user info to request object
       req.user = decoded;
       console.log("Token verified successfully for user:", decoded.id);
@@ -89,4 +89,11 @@ export const getUserPurchase = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err })
   }
+}
+
+export const logOut = async (req, res) => {
+  try { res.status(200).json({ message: "Logout successfully" }) } catch (err) {
+    res.status(500).json({ message: "Error during log out" })
+  }
+
 }

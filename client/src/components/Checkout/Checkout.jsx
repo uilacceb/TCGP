@@ -15,11 +15,11 @@ const Checkout = () => {
   // Fetch cart items when component mounts
   useEffect(() => {
     const fetchCartItems = async () => {
-      // if (!userID || !token) {
-      //   setError("Please log in to view your cart");
-      //   setLoading(false);
-      //   return;
-      // }
+      if (!username || !token) {
+        setError("Please log in to view your cart");
+        setLoading(false);
+        return;
+      }
 
       try {
         setLoading(true);

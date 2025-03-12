@@ -13,6 +13,7 @@ const Header = () => {
   const { isLoggedIn, username, availableMoney } = useContext(AuthContext)
 
 
+
   return (
     <div className={styles.container}>
       <img style={{ cursor: "pointer" }} onClick={() => navigate("/pokemonCards")} src={mainIcon} height={80} />
@@ -23,7 +24,7 @@ const Header = () => {
           </div>
         </> :
         <div className={styles.loginGroup}>
-          <button className={styles.loginButton} onClick={()=>navigate("/userInfo")}>
+          <button className={styles.loginButton} onClick={() => navigate("/userInfo")}>
             <img className={styles.loginIcon} src={loginIcon} height={50} width={70} />
             <div className={styles.userPreview}>
               <p >{`Welcome ${username}`}</p>
