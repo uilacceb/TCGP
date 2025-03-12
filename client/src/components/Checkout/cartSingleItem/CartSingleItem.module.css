@@ -36,3 +36,33 @@
   top: 20px;
   right: 20px;
 }
+
+@media only screen and (min-width: 375px) {
+  .singleItemCard {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 20px rgb(150, 150, 150);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: white;
+    position: relative;
+  }
+
+  .itemImage {
+    width: 70%;
+  }
+
+  .addDelete {
+    width: 90%;
+  }
+  .quantity {
+    width: 30%;
+  }
+  .total {
+    font-size: 14px;
+    padding-top: 10px;
+  }
+}

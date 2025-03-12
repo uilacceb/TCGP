@@ -141,6 +141,21 @@
   }
 }
 
+@media only screen and (min-width: 380px) {
+  .image {
+    height: 100px;
+  }
+  .container {
+    padding: 0;
+  }
+  .addDelete {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   .image {
     height: 300px;

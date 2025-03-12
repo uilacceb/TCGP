@@ -211,6 +211,7 @@ body {
       2,
       1fr
     ); /* 3 columns on typical mobile phones */
+    width: 100%;
     gap: 6px;
   }
 }

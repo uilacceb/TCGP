@@ -159,7 +159,7 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
             +
           </button>
         </div>
-        <p>Total: ${singleTotal}</p>
+        <p className={styles.total}>Total: ${singleTotal}</p>
       </div>
     </div>
   );
