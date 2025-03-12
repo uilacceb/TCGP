@@ -68,3 +68,48 @@ export const getCartItems = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// Add this to your product.controller.js
+export const removeCartItem = async (req, res) => {
+  try {
+    console.log("Request to remove item:", req.body);
+    const { username, cardId } = req.body;
+
+    if (!username) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const user = await User.findOne({username});
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    // Find the item in the cart
+    const initialLength = user.purchasedItems.length;
+    
+    // Remove the item from purchasedItems array
+    user.purchasedItems = user.purchasedItems.filter(item => item.cardId !== cardId);
+    
+    // Check if an item was actually removed
+    if (user.purchasedItems.length === initialLength) {
+      return res.status(404).json({ message: "Item not found in cart" });
+    }
+    
+    await user.save();
+    
+    // Calculate new total
+    const totalPrice = user.purchasedItems.reduce(
+      (sum, item) => sum + (item.price * item.quantity), 0
+    );
+    
+    res.status(200).json({
+      message: "Item removed from cart",
+      cartItems: user.purchasedItems,
+      totalPrice
+    });
+  } catch (err) {
+    console.error("Error removing cart item:", err);
+    res.status(500).json({ message: "Internal server error", error: err.message });
+  }
+};

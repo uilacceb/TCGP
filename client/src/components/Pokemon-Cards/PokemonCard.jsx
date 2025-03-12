@@ -351,7 +351,6 @@ const PokemonCard = () => {
             name={card.productName}
             rarity={card.rarity}
             price={card.price}
-            stock={card.stockQuantity}
             onClick={() => showDetail(card)}
           />
         ))}

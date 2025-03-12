@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import styles from "./CartSingleItem.module.css";
 import axios from "axios";
+import { FaTrashCan } from "react-icons/fa6";
 
-const CartSingleItem = ({ price, quantity, productName, src, stock, cardId, onQuantityChange }) => {
+const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityChange, onRemoveItem }) => {
   const [quantity1, setQuantity1] = useState(quantity);
   const [singleTotal, setSingleTotal] = useState(price * quantity);
   const [updating, setUpdating] = useState(false);
 
-  const userID = localStorage.getItem("userID");
+  const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
   const addQuantity = async () => {
-    if (quantity1 === stock) return;
+
 
     const newQuantity = quantity1 + 1;
     setQuantity1(newQuantity);
@@ -58,7 +59,7 @@ const CartSingleItem = ({ price, quantity, productName, src, stock, cardId, onQu
 
   // Optional: Function to update quantity on server
   const updateQuantityOnServer = async (newQuantity) => {
-    if (!userID || !token) return;
+    if (!username || !token) return;
 
     try {
       setUpdating(true);
@@ -67,14 +68,13 @@ const CartSingleItem = ({ price, quantity, productName, src, stock, cardId, onQu
       await axios.put(
         "http://localhost:8080/product/cart/update",
         {
-          userID,
+          username,
           cardId,
           quantity: newQuantity
         },
         {
           headers: {
-            Authorization: token,
-            "Content-Type": "application/json"
+            Authorization: token
           }
         }
       );
@@ -88,10 +88,48 @@ const CartSingleItem = ({ price, quantity, productName, src, stock, cardId, onQu
 
   useEffect(() => {
     setSingleTotal(quantity1 * price);
-  }, [quantity1, price]);
+  }, [quantity1, price, cardId]);
+
+  const handleRemoveItem = async () => {
+    if (!token || !username) {
+      console.error("Missing token or username");
+      return;
+    }
+
+    try {
+      setUpdating(true);
+
+      const response = await axios.delete("http://localhost:8080/product/cart/remove", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+        },
+        data: {
+          cardId,
+          username
+        }
+      });
+
+      console.log("Item removed:", response.data);
+
+      // Call the callback function to notify parent component
+      if (onRemoveItem) {
+        onRemoveItem(cardId);
+      }
+
+    } catch (error) {
+      console.error("Error removing item:", error);
+    } finally {
+      setUpdating(false);
+    }
+  };
+
 
   return (
     <div className={styles.singleItemCard}>
+      <div className={styles.deleteIconDiv} onClick={handleRemoveItem}>
+        <FaTrashCan className={styles.deleteIcon} color="#FF2B3D" />
+      </div>
       <div className={styles.itemImageDiv}>
         <img src={src} className={styles.itemImage} alt={productName} />
       </div>
@@ -117,7 +155,6 @@ const CartSingleItem = ({ price, quantity, productName, src, stock, cardId, onQu
           <button
             onClick={addQuantity}
             className={styles.minusButton}
-            disabled={quantity1 >= stock || updating}
           >
             +
           </button>

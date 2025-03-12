@@ -96,7 +96,6 @@ const SingleCard = ({ src, name, id, onClick, price, stock, cardId, rarity }) =>
       <div className={styles.info}>
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.price}>Price: ${price}</p>
-        <p className={styles.stock}>Stock: {stock}</p>
         {message && <p className={styles.message}>{message}</p>}
         <div className={styles.addDelete}>
           <button onClick={subQuantity} className={styles.plusButton}>-</button>

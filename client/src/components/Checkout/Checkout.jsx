@@ -129,6 +129,15 @@ const Checkout = () => {
     return <div className={styles.emptyCart}>Your cart is empty</div>;
   }
 
+  const handleRemoveItem = (cardId) => {
+    // Filter out the removed item
+    const updatedItems = cartItems.filter(item => item.cardId !== cardId);
+    setCartItems(updatedItems);
+
+    // Recalculate the total price
+    calculateTotalPrice(updatedItems);
+  };
+
   return (
     <div className={styles.checkoutContainer}>
       <h1 className={styles.title}>Your Cart</h1>
@@ -143,6 +152,7 @@ const Checkout = () => {
               cardId={item.cardId}
               stock={item.stock || 10} // Default to 10 if stock not provided
               onQuantityChange={handleQuantityChange}
+              onRemoveItem={handleRemoveItem}
             />
           </div>
         ))}

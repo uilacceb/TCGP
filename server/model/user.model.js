@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   },
   availableMoney: {
     type: Number,
-    default: 10000
+    default: 100000
   },
   purchasedItems: {
     type: Array,
