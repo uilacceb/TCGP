@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <div className={styles.container}>
-      <img style={{ cursor: "pointer" }} onClick={() => navigate("/pokemonCards")} src={mainIcon} height={80} />
+      <img onClick={() => navigate("/pokemonCards")} src={mainIcon} className={styles.headerLogo} />
       {!isLoggedIn ?
         <>
           <div className={styles.loginGroup}>
@@ -32,8 +32,9 @@ const Header = () => {
             </div>
           </button>
         </div>}
-
-      <img className={styles.cartImage} src={cartImage} height={60} width={60} onClick={() => navigate("/checkout")} />
+      <div className={styles.cartContainer}>
+        <img className={styles.cartImage} src={cartImage} height={60} width={60} onClick={() => navigate("/checkout")} />
+      </div>
     </div>
 
   )

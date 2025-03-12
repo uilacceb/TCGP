@@ -17,18 +17,6 @@ const SingleCard = ({ src, name, id, onClick, price, stock, cardId, rarity }) =>
   }
 
   const addToCart = async () => {
-    if (quantity <= 0) {
-      setMessage("Please select a valid quantity");
-      setTimeout(() => setMessage(""), 3000);
-      return;
-    }
-
-    // if (!userID) {
-    //   setMessage("Please log in to add items to cart");
-    //   setTimeout(() => setMessage(""), 3000);
-    //   return;
-    // }
-
     try {
       setIsAdding(true);
 
@@ -75,12 +63,10 @@ const SingleCard = ({ src, name, id, onClick, price, stock, cardId, rarity }) =>
   }
 
   const addQuantity = () => {
-    quantity === stock ? setQuantity(stock) :
       setQuantity(prev => prev + 1)
   }
 
   const subQuantity = () => {
-    quantity === 1 ? setQuantity(1) :
       setQuantity(prev => prev - 1)
   }
 

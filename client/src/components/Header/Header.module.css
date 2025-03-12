@@ -9,10 +9,13 @@
   height: 12vh; /* Fixed height */
   /* margin-bottom: 10px; */
 }
+.headerLogo {
+  cursor: pointer;
+  height: 10vh;
+}
 
 .cartImage {
-  margin-right: 40px;
-  height: 5vh;
+  height: 100%;
   width: auto;
   cursor: pointer;
 }
@@ -26,6 +29,7 @@
   display: flex;
   align-items: center;
   margin-right: 20px;
+  min-width: 150px;
 }
 
 .loginButton {
@@ -63,14 +67,127 @@
   margin-right: 0.9rem;
 }
 
-/* @media (max-width: 768px) {
+.cartContainer {
+}
+
+@media only screen and (min-width: 320px) {
+  .cartContainer {
+    height: 5vh;
+    width: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .headerLogo {
+    height: 40px;
+  }
+
+  .loginGroup {
+  }
+
+  .loginButton {
+    height: 80%;
+  }
+
+  .loginIcon {
+    height: 30px;
+    width: auto;
+  }
+  .userPreview {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .availableMoney {
+    font-size: 12px;
+  }
+
   .cartImage {
-    max-height: 30px;
+    height: 30px;
   }
 }
 
-@media (max-width: 480px) {
-  .cartImage {
-    max-height: 25px;
+@media only screen and (min-width: 375px) {
+  .container {
+    width: 100%;
   }
-} */
+}
+@media only screen and (min-width: 764px) {
+  .cartContainer {
+    height: 5vh;
+    width: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .headerLogo {
+    height: 80px;
+  }
+
+  .loginGroup {
+  }
+
+  .loginButton {
+    height: 80%;
+  }
+
+  .loginIcon {
+    height: 50px;
+    width: auto;
+  }
+  .userPreview {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .availableMoney {
+    font-size: 20px;
+  }
+
+  .cartImage {
+    height: 40px;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .cartContainer {
+    height: 5vh;
+    width: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .headerLogo {
+    height: 80px;
+  }
+
+  .loginGroup {
+  }
+
+  .loginButton {
+    height: 80%;
+  }
+
+  .loginIcon {
+    height: 50px;
+    width: auto;
+  }
+  .userPreview {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .availableMoney {
+    font-size: 20px;
+  }
+
+  .cartImage {
+    height: 40px;
+  }
+}
