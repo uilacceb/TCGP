@@ -43,7 +43,7 @@ const SingleCard = ({ src, name, id, onClick, price, stock, cardId, rarity }) =>
         return;
       }
 
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:8080/product/cart/add",
         {
           cardId,

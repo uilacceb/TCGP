@@ -1,56 +1,76 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Checkout.module.css";
-import CartSingleItem from "./cartSingleItem/cartSingleItem";
+import CartSingleItem from "./cartSingleItem/CartSingleItem";
 import { FaAngleUp } from "react-icons/fa6";
-// import CartSingleItem from "./cartSingleItem/CartSingleItem"
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(true);
 
-  // Get userID from localStorage
+  // Get user info from localStorage
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
   // Fetch cart items when component mounts
   useEffect(() => {
-    const fetchCartItems = async () => {
-      if (!username || !token) {
-        setError("Please log in to view your cart");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        setLoading(true);
-        const response = await axios.get(`http://localhost:8080/product/cart/${username}`, {
-          headers: {
-            Authorization: token
-          }
-        });
-
-        setCartItems(response.data.cartItems || []);
-
-        // Calculate total price
-        const total = (response.data.cartItems || []).reduce(
-          (sum, item) => sum + (item.price * item.quantity), 0
-        );
-        setTotalPrice(total);
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-        setError("Failed to load cart items. Please try again.");
-        setLoading(false);
-      }
-    };
-
     fetchCartItems();
   }, [username, token]);
+
+  // Function to fetch cart items
+  const fetchCartItems = async () => {
+    if (!username || !token) {
+      setError("Please log in to view your cart");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await axios.get(`http://localhost:8080/product/cart/${username}`, {
+        headers: {
+          Authorization: token
+        }
+      });
+
+      const items = response.data.cartItems || [];
+      setCartItems(items);
+
+      // Calculate total price
+      calculateTotalPrice(items);
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+      setError("Failed to load cart items. Please try again.");
+      setLoading(false);
+    }
+  };
+
+  // Function to calculate total price
+  const calculateTotalPrice = (items) => {
+    const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    setTotalPrice(total);
+  };
+
+  // Function to handle quantity changes
+  const handleQuantityChange = (cardId, newQuantity) => {
+    // Update the cart items locally with the new quantity
+    const updatedItems = cartItems.map(item => {
+      if (item.cardId === cardId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+
+    setCartItems(updatedItems);
+
+    // Recalculate the total price
+    calculateTotalPrice(updatedItems);
+  };
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -59,17 +79,45 @@ const Checkout = () => {
       } else {
         setIsVisible(false);
       }
-    }
+    };
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
-  }, [])
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
 
+  const handleCheckout = async () => {
+    try {
+      setLoading(true);
 
-  if (loading) {
+      await axios.post(
+        "http://localhost:8080/product/checkout",
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      // Clear the cart after successful checkout
+      setCartItems([]);
+      setTotalPrice(0);
+
+      // You could show success message or redirect
+      alert("Checkout successful!");
+
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      setError("Failed to complete checkout. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading && cartItems.length === 0) {
     return <div className={styles.loading}>Loading your cart...</div>;
   }
 
@@ -81,43 +129,45 @@ const Checkout = () => {
     return <div className={styles.emptyCart}>Your cart is empty</div>;
   }
 
-
-
   return (
     <div className={styles.checkoutContainer}>
       <h1 className={styles.title}>Your Cart</h1>
       <div className={styles.cartItems}>
-        {
-          cartItems.map((item, index) => (
-            <div key={index} className={styles.cartItem}>
-              <CartSingleItem price={item.price} quantity={item.quantity} productName={item.productName} src={item.imageURL} />
-            </div>
-          ))
-        }
+        {cartItems.map((item, index) => (
+          <div key={index} className={styles.cartItem}>
+            <CartSingleItem
+              price={item.price}
+              quantity={item.quantity}
+              productName={item.productName}
+              src={item.imageURL}
+              cardId={item.cardId}
+              stock={item.stock || 10} // Default to 10 if stock not provided
+              onQuantityChange={handleQuantityChange}
+            />
+          </div>
+        ))}
       </div>
-      <div >
+      <div>
         <button
-          className={`${styles.scrollToTop} ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
-            }`}
-          style={{ display: isVisible ? "block" : "none", }}
-          onClick={scrollToTop}><FaAngleUp size={50} /></button>
+          className={`${styles.scrollToTop} ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"}`}
+          style={{ display: isVisible ? "block" : "none" }}
+          onClick={scrollToTop}
+        >
+          <FaAngleUp size={50} />
+        </button>
       </div>
       <div className={styles.cartSummary}>
-        <h2>Order Summary</h2>
-        <div className={styles.summaryRow}>
-          <span>Subtotal:</span>
-          <span>${totalPrice}</span>
-        </div>
-        <div>
-          <span>Total:</span>
-          <span>${totalPrice}</span>
+        <div className={styles.totalPrice}>
+          <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Total: </span>
+          <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>${totalPrice}</span>
         </div>
 
         <button
           className={styles.checkoutButton}
-        // onClick={handleCheckout}
+          onClick={handleCheckout}
+          disabled={loading}
         >
-          Proceed to Checkout
+          {loading ? "Processing..." : "Checkout"}
         </button>
       </div>
     </div>

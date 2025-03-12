@@ -13,3 +13,11 @@
 .itemImage {
   width: 40%;
 }
+
+.addDelete {
+  width: 80%;
+}
+.quantity {
+  width: 40%;
+  text-align: center;
+}
