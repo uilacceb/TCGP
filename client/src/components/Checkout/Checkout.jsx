@@ -72,6 +72,7 @@ const Checkout = () => {
     calculateTotalPrice(updatedItems);
   };
 
+  //scroll to top useEffect
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 400) {
@@ -88,12 +89,16 @@ const Checkout = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Fix for the handleCheckout function in Checkout.jsx
+
   const handleCheckout = async () => {
     try {
       setLoading(true);
 
+      // Correct structure: Separate headers from body
       await axios.post(
         "http://localhost:8080/product/checkout",
+        { username }, // Add any needed payload data here
         {
           headers: {
             Authorization: token,
@@ -116,7 +121,6 @@ const Checkout = () => {
       setLoading(false);
     }
   };
-
   if (loading && cartItems.length === 0) {
     return <div className={styles.loading}>Loading your cart...</div>;
   }
@@ -150,7 +154,6 @@ const Checkout = () => {
               productName={item.productName}
               src={item.imageURL}
               cardId={item.cardId}
-              stock={item.stock || 10} // Default to 10 if stock not provided
               onQuantityChange={handleQuantityChange}
               onRemoveItem={handleRemoveItem}
             />

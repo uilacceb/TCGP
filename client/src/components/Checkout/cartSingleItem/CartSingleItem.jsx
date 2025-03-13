@@ -4,40 +4,41 @@ import axios from "axios";
 import { FaTrashCan } from "react-icons/fa6";
 
 const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityChange, onRemoveItem }) => {
-  const [quantity1, setQuantity1] = useState(quantity);
+  const [localQuantity, setLocalQuantity] = useState(quantity);
   const [singleTotal, setSingleTotal] = useState(price * quantity);
   const [updating, setUpdating] = useState(false);
 
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
+  // Update local state when prop changes
+  useEffect(() => {
+    setLocalQuantity(quantity);
+  }, [quantity]);
+
   const addQuantity = async () => {
-
-
-    const newQuantity = quantity1 + 1;
-    setQuantity1(newQuantity);
+    const newQuantity = localQuantity + 1;
+    setLocalQuantity(newQuantity);
 
     // Call the function to update parent component
     if (onQuantityChange) {
       onQuantityChange(cardId, newQuantity);
     }
 
-    // Optional: Update on server
     updateQuantityOnServer(newQuantity);
   };
 
   const subQuantity = async () => {
-    if (quantity1 <= 1) return;
+    if (localQuantity <= 1) return;
 
-    const newQuantity = quantity1 - 1;
-    setQuantity1(newQuantity);
+    const newQuantity = localQuantity - 1;
+    setLocalQuantity(newQuantity);
 
     // Call the function to update parent component
     if (onQuantityChange) {
       onQuantityChange(cardId, newQuantity);
     }
 
-    // Optional: Update on server
     updateQuantityOnServer(newQuantity);
   };
 
@@ -46,25 +47,29 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
     let numericValue = input.replace(/[^0-9]/g, "");
     const newQuantity = numericValue === "" ? 1 : Number(numericValue);
 
-    setQuantity1(newQuantity);
+    setLocalQuantity(newQuantity);
 
     // Call the function to update parent component
     if (onQuantityChange) {
       onQuantityChange(cardId, newQuantity);
     }
 
-    // Optional: Update on server (you might want to add debounce here)
     updateQuantityOnServer(newQuantity);
   };
 
-  // Optional: Function to update quantity on server
+  // Function to update quantity on server
   const updateQuantityOnServer = async (newQuantity) => {
     if (!username || !token) return;
 
     try {
       setUpdating(true);
 
-      // You'll need to implement this endpoint on your server
+      console.log("Updating server with:", {
+        username,
+        cardId,
+        quantity: newQuantity
+      });
+
       await axios.put(
         "http://localhost:8080/product/cart/update",
         {
@@ -74,21 +79,25 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
         },
         {
           headers: {
-            Authorization: token
+            Authorization: token,
+            "Content-Type": "application/json"
           }
         }
       );
+
+      console.log("Server update successful");
     } catch (error) {
       console.error("Error updating quantity:", error);
-      // You might want to revert the quantity change on error
+      // Revert to previous quantity on error
+      setLocalQuantity(quantity);
     } finally {
       setUpdating(false);
     }
   };
 
   useEffect(() => {
-    setSingleTotal(quantity1 * price);
-  }, [quantity1, price, cardId]);
+    setSingleTotal(localQuantity * price);
+  }, [localQuantity, price]);
 
   const handleRemoveItem = async () => {
     if (!token || !username) {
@@ -124,7 +133,6 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
     }
   };
 
-
   return (
     <div className={styles.singleItemCard}>
       <div className={styles.deleteIconDiv} onClick={handleRemoveItem}>
@@ -140,7 +148,7 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
           <button
             onClick={subQuantity}
             className={styles.plusButton}
-            disabled={quantity1 <= 1 || updating}
+            disabled={localQuantity <= 1 || updating}
           >
             -
           </button>
@@ -148,13 +156,14 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
             className={styles.quantity}
             type="text"
             min={1}
-            value={quantity1}
+            value={localQuantity}
             onChange={(e) => handleInputChange(e)}
             disabled={updating}
           />
           <button
             onClick={addQuantity}
             className={styles.minusButton}
+            disabled={updating}
           >
             +
           </button>

@@ -37,10 +37,10 @@
   right: 20px;
 }
 
-@media only screen and (min-width: 375px) {
+@media only screen and (max-width: 375px) {
   .singleItemCard {
     display: flex;
-    width: 80%;
+    width: 90%;
     justify-content: center;
     align-items: center;
     box-shadow: 10px 10px 20px rgb(150, 150, 150);
@@ -56,10 +56,10 @@
   }
 
   .addDelete {
-    width: 90%;
+    width: 100%;
   }
   .quantity {
-    width: 30%;
+    width: 23%;
   }
   .total {
     font-size: 14px;

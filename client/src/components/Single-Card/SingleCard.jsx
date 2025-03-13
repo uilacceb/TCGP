@@ -3,7 +3,7 @@ import AddToCard from "../../assets/add-to-cart.png"
 import { useState } from "react"
 import axios from "axios"
 
-const SingleCard = ({ src, name, id, onClick, price, stock, cardId, rarity }) => {
+const SingleCard = ({ src, name, id, onClick, price, cardId, rarity }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [message, setMessage] = useState("");
