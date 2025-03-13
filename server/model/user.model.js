@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 100000
   },
+  shoppingCartItems:{
+    type: Array,
+    default: []
+  },
   purchasedItems: {
     type: Array,
     default: []

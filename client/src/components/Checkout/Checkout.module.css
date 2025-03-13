@@ -54,7 +54,8 @@
   margin-bottom: 20px;
 }
 
-.checkoutButton {
+.checkoutButton,
+.returnButton {
   border: 0;
   padding: 10px;
   font-weight: 600;
@@ -63,6 +64,14 @@
   border-radius: 10px;
 }
 
-.checkoutButton:hover {
+.checkoutButton:hover,
+.returnButton:hover {
   background-color: rgb(205, 205, 205);
+}
+
+.emptyCart,
+.error,
+.error {
+  font-size: 2rem;
+  font-weight: 500;
 }

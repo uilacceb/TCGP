@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Checkout.module.css";
 import CartSingleItem from "./cartSingleItem/CartSingleItem";
 import { FaAngleUp } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -11,6 +12,7 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
+  const navigate = useNavigate();
   // Get user info from localStorage
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
@@ -89,16 +91,23 @@ const Checkout = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Fix for the handleCheckout function in Checkout.jsx
-
   const handleCheckout = async () => {
+    if (!username || !token) {
+      setError("Please log in to checkout");
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      setError("Your cart is empty");
+      return;
+    }
+
     try {
       setLoading(true);
 
-      // Correct structure: Separate headers from body
       await axios.post(
         "http://localhost:8080/product/checkout",
-        { username }, // Add any needed payload data here
+        { username },
         {
           headers: {
             Authorization: token,
@@ -107,30 +116,76 @@ const Checkout = () => {
         }
       );
 
-      // Clear the cart after successful checkout
+      // Clear the local cart state
       setCartItems([]);
       setTotalPrice(0);
 
-      // You could show success message or redirect
+      // Show success message
       alert("Checkout successful!");
 
     } catch (error) {
       console.error("Error during checkout:", error);
-      setError("Failed to complete checkout. Please try again.");
+
+      if (error.response && error.response.status === 400 && error.response.data.message === "Insufficient funds") {
+        setError(`Insufficient funds. You need $${error.response.data.required} but have $${error.response.data.available}.`);
+      } else if (error.response) {
+        setError(error.response.data.message || "Failed to complete checkout. Please try again.");
+      } else {
+        setError("Network error. Please check your connection and try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  // Function to refresh the cart
+  const handleRefreshCart = () => {
+    // Clear any errors
+    setError("");
+    // Fetch cart items again
+    fetchCartItems();
+  };
+
   if (loading && cartItems.length === 0) {
-    return <div className={styles.loading}>Loading your cart...</div>;
+    return (
+      <div className={styles.checkoutContainer}>
+        <p className={styles.loading}>Loading your cart...</p>
+        <button
+          className={styles.returnButton}
+          onClick={handleRefreshCart}
+        >
+          Refresh Cart
+        </button>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className={styles.error}>{error}</div>;
+    return (
+      <div className={styles.checkoutContainer}>
+        <p className={styles.error}>{error}</p>
+        <button
+          className={styles.returnButton}
+          onClick={handleRefreshCart}
+        >
+          Refresh Cart
+        </button>
+      </div>
+    );
   }
 
   if (cartItems.length === 0) {
-    return <div className={styles.emptyCart}>Your cart is empty</div>;
+    return (
+      <div className={styles.checkoutContainer}>
+        <p className={styles.emptyCart}>Your cart is empty</p>
+        <button
+          className={styles.returnButton}
+          onClick={handleRefreshCart}
+        >
+          Return to Cart
+        </button>
+      </div>
+    );
   }
 
   const handleRemoveItem = (cardId) => {

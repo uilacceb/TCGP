@@ -19,10 +19,10 @@ export const addToCart = async (req, res) => {
     const updateResult = await User.findOneAndUpdate(
       {
         _id: userId,
-        "purchasedItems.cardId": cardId
+        "shoppingCartItems.cardId": cardId
       },
       {
-        $inc: { "purchasedItems.$.quantity": numericQuantity }
+        $inc: { "shoppingCartItems.$.quantity": numericQuantity }
       },
       {
         new: true
@@ -33,7 +33,7 @@ export const addToCart = async (req, res) => {
     if (updateResult) {
       return res.status(200).json({
         message: "Item quantity updated in cart",
-        cartItems: updateResult.purchasedItems
+        cartItems: updateResult.shoppingCartItems
       });
     }
 
@@ -43,7 +43,7 @@ export const addToCart = async (req, res) => {
       userId,
       {
         $push: {
-          purchasedItems: {
+          shoppingCartItems: {
             cardId,
             productName,
             price,
@@ -65,7 +65,7 @@ export const addToCart = async (req, res) => {
 
     res.status(200).json({
       message: "Item added to cart",
-      cartItems: addResult.purchasedItems
+      cartItems: addResult.shoppingCartItems
     });
   } catch (err) {
     console.error("Error adding to cart:", err);
@@ -85,14 +85,14 @@ export const getCartItems = async (req, res) => {
     }
 
     res.status(200).json({
-      cartItems: user.purchasedItems || []
+      cartItems: user.shoppingCartItems || []
     });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
-// Add this to your product.controller.js
+
 export const removeCartItem = async (req, res) => {
   try {
     console.log("Request to remove item:", req.body);
@@ -109,26 +109,26 @@ export const removeCartItem = async (req, res) => {
     }
 
     // Find the item in the cart
-    const initialLength = user.purchasedItems.length;
+    const initialLength = user.shoppingCartItems.length;
 
     // Remove the item from purchasedItems array
-    user.purchasedItems = user.purchasedItems.filter(item => item.cardId !== cardId);
+    user.shoppingCartItems = user.shoppingCartItems.filter(item => item.cardId !== cardId);
 
     // Check if an item was actually removed
-    if (user.purchasedItems.length === initialLength) {
+    if (user.shoppingCartItems.length === initialLength) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
 
     await user.save();
 
     // Calculate new total
-    const totalPrice = user.purchasedItems.reduce(
+    const totalPrice = user.shoppingCartItems.reduce(
       (sum, item) => sum + (item.price * item.quantity), 0
     );
 
     res.status(200).json({
       message: "Item removed from cart",
-      cartItems: user.purchasedItems,
+      cartItems: user.shoppingCartItems,
       totalPrice
     });
   } catch (err) {
@@ -154,10 +154,10 @@ export const updateCartItem = async (req, res) => {
     const result = await User.findOneAndUpdate(
       {
         username: username,
-        "purchasedItems.cardId": cardId
+        "shoppingCartItems.cardId": cardId
       },
       {
-        $set: { "purchasedItems.$.quantity": numericQuantity }
+        $set: { "shoppingCartItems.$.quantity": numericQuantity }
       },
       {
         new: true,  // Return the updated document
@@ -173,10 +173,85 @@ export const updateCartItem = async (req, res) => {
 
     res.status(200).json({
       message: "Cart updated successfully",
-      cartItems: result.purchasedItems
+      cartItems: result.shoppingCartItems
     });
   } catch (err) {
     console.error("Error updating cart:", err);
     res.status(500).json({ message: "Internal server error", error: err.message });
   }
 }
+
+export const checkout = async (req, res) => {
+  try {
+    const { username } = req.body;
+    
+    // Get user from authenticated token
+    const userId = req.user.id;
+    
+    // Find the user
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    // Additional validation - check if the authenticated user matches the username
+    if (user.username !== username) {
+      return res.status(403).json({ message: "Unauthorized: Username mismatch" });
+    }
+    
+    // Check if cart is empty
+    if (!user.shoppingCartItems || user.shoppingCartItems.length === 0) {
+      return res.status(400).json({ message: "Cart is empty" });
+    }
+    
+    // Calculate total amount
+    const totalAmount = user.shoppingCartItems.reduce(
+      (sum, item) => sum + (item.price * item.quantity), 0
+    );
+    
+    // Check if user has enough money
+    if (user.availableMoney < totalAmount) {
+      return res.status(400).json({ 
+        message: "Insufficient funds", 
+        available: user.availableMoney,
+        required: totalAmount
+      });
+    }
+    
+    // Get current cart items to move them
+    const itemsToMove = [...user.shoppingCartItems];
+    
+    // Move items from shopping cart to purchased items and update money
+    const result = await User.findByIdAndUpdate(
+      userId,
+      { 
+        // Clear the shopping cart
+        $set: { shoppingCartItems: [] },
+        
+        // Add cart items to purchased items (directly as they are)
+        $push: { 
+          purchasedItems: { 
+            $each: itemsToMove
+          } 
+        },
+        
+        // Deduct money from available balance
+        $inc: { availableMoney: -totalAmount }
+      },
+      { new: true }
+    );
+    
+    if (!result) {
+      return res.status(500).json({ message: "Failed to process checkout" });
+    }
+    
+    res.status(200).json({
+      message: "Checkout successful",
+      remainingBalance: result.availableMoney
+    });
+  } catch (err) {
+    console.error("Error during checkout:", err);
+    res.status(500).json({ message: "Checkout failed", error: err.message });
+  }
+};
