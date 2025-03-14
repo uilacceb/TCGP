@@ -16,18 +16,9 @@ const UserInfo = () => {
     getPurchasedItems();
   }, [token]);
 
-  // Set up auto sliding for carousel
-  useEffect(() => {
-    if (purchasedItems.length <= 1) return;
 
-    const interval = setInterval(() => {
-      setCurrentItemIndex((prevIndex) =>
-        prevIndex === purchasedItems.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000); // Change slide every 5 seconds
 
-    return () => clearInterval(interval);
-  }, [purchasedItems]);
+
 
   const getPurchasedItems = async () => {
     try {

@@ -108,7 +108,7 @@
 
 /* Carousel Navigation Buttons */
 .carouselButton {
-  background-color: #4a90e2;
+  background-color: #444444;
   color: white;
   border: none;
   border-radius: 50%;
@@ -119,12 +119,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
   margin: 0 10px;
 }
 
 .carouselButton:hover {
-  background-color: #3a70b2;
+  background-color: #4a8cde;
 }
 
 .carouselButton:focus {
@@ -137,6 +137,7 @@
   justify-content: center;
   gap: 8px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .dot {
@@ -157,5 +158,6 @@
   text-align: center;
   padding: 20px;
   color: #888;
+  font-size: 1.3rem;
   font-style: italic;
 }
