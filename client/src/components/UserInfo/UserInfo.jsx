@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const UserInfo = () => {
-  const { availableMoney, setIsLoggedIn } = useContext(AuthContext);
+  const { availableMoney, setIsLoggedIn, setAvailableMoney } = useContext(AuthContext);
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const username = localStorage.getItem('username');
@@ -14,9 +14,22 @@ const UserInfo = () => {
 
   useEffect(() => {
     getPurchasedItems();
-  }, [token]);
+    getBalance()
+  }, [token, availableMoney]);
 
 
+  const getBalance = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/product/availableMoney/${username}`, {
+        headers: {
+          Authorization: token
+        }
+      });
+      setAvailableMoney(response.data.availableMoney)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
 
 

@@ -16,6 +16,7 @@ const Checkout = () => {
   // Get user info from localStorage
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
+  const navigate = useNavigate()
 
   // Fetch cart items when component mounts
   useEffect(() => {
@@ -122,6 +123,7 @@ const Checkout = () => {
 
       // Show success message
       alert("Checkout successful!");
+      navigate("/userInfo")
 
     } catch (error) {
       console.error("Error during checkout:", error);
