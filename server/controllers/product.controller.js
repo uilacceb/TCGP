@@ -92,7 +92,6 @@ export const getCartItems = async (req, res) => {
   }
 };
 
-
 export const removeCartItem = async (req, res) => {
   try {
     console.log("Request to remove item:", req.body);
@@ -136,7 +135,6 @@ export const removeCartItem = async (req, res) => {
     res.status(500).json({ message: "Internal server error", error: err.message });
   }
 };
-
 
 export const updateCartItem = async (req, res) => {
   try {
@@ -184,68 +182,68 @@ export const updateCartItem = async (req, res) => {
 export const checkout = async (req, res) => {
   try {
     const { username } = req.body;
-    
+
     // Get user from authenticated token
     const userId = req.user.id;
-    
+
     // Find the user
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    
+
     // Additional validation - check if the authenticated user matches the username
     if (user.username !== username) {
       return res.status(403).json({ message: "Unauthorized: Username mismatch" });
     }
-    
+
     // Check if cart is empty
     if (!user.shoppingCartItems || user.shoppingCartItems.length === 0) {
       return res.status(400).json({ message: "Cart is empty" });
     }
-    
+
     // Calculate total amount
     const totalAmount = user.shoppingCartItems.reduce(
       (sum, item) => sum + (item.price * item.quantity), 0
     );
-    
+
     // Check if user has enough money
     if (user.availableMoney < totalAmount) {
-      return res.status(400).json({ 
-        message: "Insufficient funds", 
+      return res.status(400).json({
+        message: "Insufficient funds",
         available: user.availableMoney,
         required: totalAmount
       });
     }
-    
+
     // Get current cart items to move them
     const itemsToMove = [...user.shoppingCartItems];
-    
+
     // Move items from shopping cart to purchased items and update money
     const result = await User.findByIdAndUpdate(
       userId,
-      { 
+      {
         // Clear the shopping cart
         $set: { shoppingCartItems: [] },
-        
+
         // Add cart items to purchased items (directly as they are)
-        $push: { 
-          purchasedItems: { 
+        $push: {
+          purchasedItems: {
             $each: itemsToMove
-          } 
+          }
         },
-        
+
         // Deduct money from available balance
         $inc: { availableMoney: -totalAmount }
       },
       { new: true }
     );
-    
+
     if (!result) {
       return res.status(500).json({ message: "Failed to process checkout" });
     }
-    
+
     res.status(200).json({
       message: "Checkout successful",
       remainingBalance: result.availableMoney
@@ -255,3 +253,14 @@ export const checkout = async (req, res) => {
     res.status(500).json({ message: "Checkout failed", error: err.message });
   }
 };
+
+export const getPurchasedItems = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    res.status(200).json({ purchasedItems: user.purchasedItems })
+  } catch (err) {
+    res.status(500).json({ message: err })
+  }
+
+}

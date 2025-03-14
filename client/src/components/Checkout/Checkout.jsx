@@ -12,7 +12,7 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
-  const navigate = useNavigate();
+
   // Get user info from localStorage
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");

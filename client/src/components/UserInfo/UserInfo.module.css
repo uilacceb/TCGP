@@ -38,3 +38,7 @@
   width: 80%;
   font-size: 2rem;
 }
+
+.purchasedItems {
+  display: flex;
+}
