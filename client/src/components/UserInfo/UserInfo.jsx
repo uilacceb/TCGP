@@ -1,22 +1,33 @@
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../App"
-import styles from "./UserInfo.module.css"
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../App";
+import styles from "./UserInfo.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const UserInfo = () => {
-
   const { availableMoney, setIsLoggedIn } = useContext(AuthContext);
-
-  const [purchasedItems, setPurchasedItems] = useState([])
-  const username = localStorage.getItem('username')
+  const [purchasedItems, setPurchasedItems] = useState([]);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const username = localStorage.getItem('username');
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getPurchasedItems()
-  }, [token])
+    getPurchasedItems();
+  }, [token]);
+
+  // Set up auto sliding for carousel
+  useEffect(() => {
+    if (purchasedItems.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentItemIndex((prevIndex) =>
+        prevIndex === purchasedItems.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [purchasedItems]);
 
   const getPurchasedItems = async () => {
     try {
@@ -27,30 +38,40 @@ const UserInfo = () => {
       });
 
       const items = response.data.purchasedItems || [];
-      console.log(items)
+      console.log(items);
       setPurchasedItems(items);
-
-
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
-
+  };
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8080/auth/logout")
-      localStorage.removeItem("token")
-      localStorage.removeItem("username")
-      setIsLoggedIn(false)
-
-      navigate("/login")
+      await axios.post("http://localhost:8080/auth/logout");
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      setIsLoggedIn(false);
+      navigate("/login");
     } catch (err) {
-      console.error("error logging out: ", err)
+      console.error("error logging out: ", err);
     }
+  };
 
-  }
+  const goToNextSlide = () => {
+    setCurrentItemIndex((prevIndex) =>
+      prevIndex === purchasedItems.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
+  const goToPrevSlide = () => {
+    setCurrentItemIndex((prevIndex) =>
+      prevIndex === 0 ? purchasedItems.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentItemIndex(index);
+  };
 
   return (
     <div className={styles.container}>
@@ -58,26 +79,69 @@ const UserInfo = () => {
         <p className={styles.username}>Username: <strong>{username}</strong></p>
         <p className={styles.availableMoney}>Available money: <strong>${availableMoney}</strong></p>
         <p className={styles.cardsObtained}>Cards obtained:</p>
-        {purchasedItems && purchasedItems.map((item) => {
-          return (<>
-            <div className={styles.purchasedItems}>
-              <img src={item.imageURL} />
-              <div>
-                <p>{item.productName}</p>
-                <p>{item.quantity}</p>
+
+        {purchasedItems.length > 0 ? (
+          <div className={styles.carouselContainer}>
+            <button
+              className={styles.carouselButton}
+              onClick={goToPrevSlide}
+            >
+              &lt;
+            </button>
+
+            <div className={styles.carouselWrapper}>
+              <div
+                className={styles.carouselSlide}
+                style={{ transform: `translateX(-${currentItemIndex * 100}%)` }}
+              >
+                {purchasedItems.map((item, index) => (
+                  <div
+                    key={`${item.cardId}-${index}`}
+                    className={styles.carouselItem}
+                  >
+                    <img
+                      src={item.imageURL}
+                      alt={item.productName}
+                      className={styles.carouselImage}
+                    />
+                    <div className={styles.carouselInfo}>
+                      <p className={styles.productName}>{item.productName}</p>
+                      <p className={styles.productQuantity}>Quantity: {item.quantity}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          </>)
-        })}
 
-        <div className={styles.logoutText}
-          onClick={handleLogout}>
+            <button
+              className={styles.carouselButton}
+              onClick={goToNextSlide}
+            >
+              &gt;
+            </button>
+          </div>
+        ) : (
+          <p className={styles.noPurchases}>No purchased items yet</p>
+        )}
+
+        {purchasedItems.length > 1 && (
+          <div className={styles.carouselDots}>
+            {purchasedItems.map((_, index) => (
+              <span
+                key={index}
+                className={`${styles.dot} ${index === currentItemIndex ? styles.activeDot : ''}`}
+                onClick={() => goToSlide(index)}
+              ></span>
+            ))}
+          </div>
+        )}
+
+        <div className={styles.logoutText} onClick={handleLogout}>
           <p>Log out</p>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default UserInfo
+export default UserInfo;
