@@ -3,14 +3,34 @@ import mainIcon from "../../assets/header-icon.png"
 import cartImage from "../../assets/shoppingCart.png"
 import loginIcon from "../../assets/Pokemon_25th_Anniversary_Logo.png"
 import { useNavigate } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { AuthContext } from "../../App"
+import axios from "axios"
 
 
 const Header = () => {
 
   const navigate = useNavigate();
-  const { isLoggedIn, username, availableMoney } = useContext(AuthContext)
+  const { isLoggedIn, username, availableMoney, setAvailableMoney } = useContext(AuthContext)
+
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    getBalance()
+  }, [availableMoney])
+
+  const getBalance = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/product/availableMoney`, {
+        headers: {
+          Authorization: token
+        }
+      });
+      setAvailableMoney(response.data.availableMoney)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
 
 

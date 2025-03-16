@@ -33,7 +33,7 @@ const Checkout = () => {
 
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8080/product/cart/${username}`, {
+      const response = await axios.get(`http://localhost:8080/product/cart`, {
         headers: {
           Authorization: token
         }
@@ -182,9 +182,9 @@ const Checkout = () => {
         <p className={styles.emptyCart}>Your cart is empty</p>
         <button
           className={styles.returnButton}
-          onClick={handleRefreshCart}
+          onClick={() => navigate("/pokemonCards")}
         >
-          Return to Cart
+          Shop Cards
         </button>
       </div>
     );

@@ -32,7 +32,7 @@ const SingleCard = ({ src, name, id, onClick, price, cardId, rarity }) => {
       }
 
       await axios.post(
-        "http://localhost:8080/product/cart/add",
+        "http://localhost:8080/product/cart",
         {
           cardId,
           productName: name,
@@ -63,11 +63,11 @@ const SingleCard = ({ src, name, id, onClick, price, cardId, rarity }) => {
   }
 
   const addQuantity = () => {
-      setQuantity(prev => prev + 1)
+    setQuantity(prev => prev + 1)
   }
 
   const subQuantity = () => {
-      setQuantity(prev => prev - 1)
+    setQuantity(prev => prev - 1)
   }
 
   return (

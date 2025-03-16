@@ -71,7 +71,7 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
       });
 
       await axios.put(
-        "http://localhost:8080/product/cart/update",
+        "http://localhost:8080/product/cart",
         {
           username,
           cardId,
@@ -108,7 +108,7 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
     try {
       setUpdating(true);
 
-      const response = await axios.delete("http://localhost:8080/product/cart/remove", {
+      const response = await axios.delete("http://localhost:8080/product/cart", {
         headers: {
           Authorization: token,
           "Content-Type": "application/json"

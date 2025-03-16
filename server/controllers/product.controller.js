@@ -76,9 +76,9 @@ export const addToCart = async (req, res) => {
 // Get user's cart items
 export const getCartItems = async (req, res) => {
   try {
-    const { username } = req.params;
+    const userId = req.user.id;
 
-    const user = await User.findOne({ username: username })
+    const user = await User.findById(userId)
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -256,8 +256,8 @@ export const checkout = async (req, res) => {
 
 export const getPurchasedItems = async (req, res) => {
   try {
-    const { username } = req.params;
-    const user = await User.findOne({ username });
+    const userId = req.user.id;
+    const user = await User.findById(userId)
     res.status(200).json({ purchasedItems: user.purchasedItems })
   } catch (err) {
     res.status(500).json({ message: err })
@@ -267,11 +267,15 @@ export const getPurchasedItems = async (req, res) => {
 
 export const getAvailableMoney = async (req, res) => {
   try {
-    const { username } = req.params
-    const user = await User.findOne({ username })
+    const userId = req.user.id
+    const user = await User.findById(userId)
     res.status(200).json({ availableMoney: user.availableMoney })
   }
   catch (err) {
     res.status(500).json({ message: err })
   }
+}
+
+export const removePurchasedItem = async (req, res) => {
+
 }

@@ -20,7 +20,7 @@ const UserInfo = () => {
 
   const getBalance = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/product/availableMoney/${username}`, {
+      const response = await axios.get(`http://localhost:8080/product/availableMoney`, {
         headers: {
           Authorization: token
         }
@@ -35,7 +35,7 @@ const UserInfo = () => {
 
   const getPurchasedItems = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/product/cart/purchasedItems/${username}`, {
+      const response = await axios.get(`http://localhost:8080/product/purchasedItems`, {
         headers: {
           Authorization: token
         }
