@@ -14,7 +14,7 @@ productRouter.put("/cart", verifyToken, updateCartItem);
 
 
 productRouter.get("/purchasedItems", verifyToken, getPurchasedItems)
-productRouter.delete("/purchaseItems", verifyToken, removePurchasedItem)
+productRouter.delete("/purchasedItems", verifyToken, removePurchasedItem)
 
 
 export default productRouter;

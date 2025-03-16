@@ -277,5 +277,24 @@ export const getAvailableMoney = async (req, res) => {
 }
 
 export const removePurchasedItem = async (req, res) => {
+  try {
+    const { userId, cardId } = req.body
+    if (!userId) {
+      return res.status(404).json({ message: "user id is required" })
+    }
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
+
+    user.purchasedItems = user.purchasedItems.filter(card => card.cardId !== cardId)
+
+    await user.save();
+    return res.status(200).json({ "Item removed": cardId })
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
 
 }
