@@ -71,13 +71,15 @@
 
 /* Individual Carousel Item */
 .carouselItem {
-  min-width: 100%;
+  min-width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 10px;
+  padding-top: 20px;
   box-sizing: border-box;
+  position: relative;
 }
 
 /* Carousel Image */
@@ -160,4 +162,58 @@
   color: #888;
   font-size: 1.3rem;
   font-style: italic;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  cursor: pointer;
+  transition: 0.15s ease-in;
+}
+
+.deleteIcon:hover {
+  transform: scale(1.1);
+}
+
+@media only screen and (max-width: 1680px) {
+  .carouselItem {
+    min-width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1680px) {
+  .carouselItem {
+    min-width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .carouselItem {
+    min-width: 25%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .carouselItem {
+    min-width: 25%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .carouselItem {
+    min-width: 33%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .carouselItem {
+    min-width: 50%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .carouselItem {
+    min-width: 100%;
+  }
 }
