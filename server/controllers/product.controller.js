@@ -278,12 +278,12 @@ export const getAvailableMoney = async (req, res) => {
 
 export const removePurchasedItem = async (req, res) => {
   try {
-    const { userId, cardId } = req.body
-    if (!userId) {
-      return res.status(404).json({ message: "user id is required" })
+    const { username, cardId } = req.body
+    if (!username) {
+      return res.status(404).json({ message: "username is required" })
     }
 
-    const user = await User.findById(userId)
+    const user = await User.findOne({ username })
 
     if (!user) {
       return res.status(404).json({ message: "User not found" })

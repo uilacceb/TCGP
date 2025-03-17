@@ -10,6 +10,8 @@ const UserInfo = () => {
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const [triggerRefresh, setTriggerRefresh] = useState(0)
   const username = localStorage.getItem('username');
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const UserInfo = () => {
   useEffect(() => {
     getPurchasedItems();
     getBalance();
-  }, [token, availableMoney]);
+  }, [token, availableMoney, triggerRefresh]);
 
   const getBalance = async () => {
     try {
@@ -121,6 +123,34 @@ const UserInfo = () => {
     return Math.ceil(purchasedItems.length / visibleItems);
   };
 
+  const handleRemoveItem = async (cardId) => {
+    if (!token || !username) {
+      console.error("Missing token or username");
+      return;
+    }
+
+    try {
+      const response = await axios.delete("http://localhost:8080/product/purchasedItems", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+        },
+        data: {
+          cardId,
+          username
+        }
+      });
+
+      console.log("Item removed:", response.data);
+      setTriggerRefresh(prev => prev + 1)
+
+
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
+  };
+
+
   return (
     <div className={styles.container}>
       <div className={styles.userInfoCard}>
@@ -148,7 +178,7 @@ const UserInfo = () => {
                     className={styles.carouselItem}
                   >
                     <div>
-                      <FaTrashCan className={styles.deleteIcon} color="#FF2B3D" />
+                      <FaTrashCan className={styles.deleteIcon} color="#FF2B3D" onClick={() => handleRemoveItem(item.cardId)} />
                     </div>
                     <img
                       src={item.imageURL}
