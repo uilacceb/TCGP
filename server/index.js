@@ -18,6 +18,10 @@ app.use("/product", productRouter)
 
 ConnectDB();
 
-app.listen(8080, () => {
-  console.log("Server started")
+// app.listen(8080, () => {
+//   console.log("Server started")
+// })
+
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to pokemon Application" })
 })
