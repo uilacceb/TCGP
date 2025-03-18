@@ -28,33 +28,33 @@ const Login = () => {
       setCookies("access_token", token)
       console.log("Received Token:", token);
 
-      // if (token) {
-      //   localStorage.setItem("token", token); // Store token in local storage
-      //   localStorage.setItem("username", inputUsername); // Store username in local storage
-
-      //   setUsername(inputUsername);
-      //   setIsLoggedIn(true)
-      //   navigate("/pokemonCards");
-      // }
       if (token) {
-        // Add debug before storing
-        console.log("About to store token:", token);
-        localStorage.setItem("token", token);
-
-        // Verify token was stored
-        const storedToken = localStorage.getItem("token");
-        console.log("Verified stored token:", storedToken);
-
-        localStorage.setItem("username", inputUsername);
-
-        // Verify username was stored
-        const storedUsername = localStorage.getItem("username");
-        console.log("Verified stored username:", storedUsername);
+        localStorage.setItem("token", token); // Store token in local storage
+        localStorage.setItem("username", inputUsername); // Store username in local storage
 
         setUsername(inputUsername);
         setIsLoggedIn(true)
         navigate("/pokemonCards");
       }
+      // if (token) {
+      //   // Add debug before storing
+      //   console.log("About to store token:", token);
+      //   localStorage.setItem("token", token);
+
+      //   // Verify token was stored
+      //   const storedToken = localStorage.getItem("token");
+      //   console.log("Verified stored token:", storedToken);
+
+      //   localStorage.setItem("username", inputUsername);
+
+      //   // Verify username was stored
+      //   const storedUsername = localStorage.getItem("username");
+      //   console.log("Verified stored username:", storedUsername);
+
+      //   setUsername(inputUsername);
+      //   setIsLoggedIn(true)
+      //   navigate("/pokemonCards");
+      // }
 
     } catch (err) {
       let errorMessage = "";

@@ -21,7 +21,9 @@ const ProtectedRoute = ({ children }) => {
           setAvailableMoney(response.data.availableMoney)
         } catch (err) {
           console.error("Error fetching user info:", err);
-          localStorage.removeItem("token");
+          if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+            localStorage.removeItem("token");
+          }
         }
       }
       fetchUserInfo();
