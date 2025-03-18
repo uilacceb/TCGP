@@ -72,21 +72,21 @@ const Login = () => {
     }
   }
 
-  const handleClosePage = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
+  // const handleClosePage = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("username");
 
-    // Update auth context state
-    setIsLoggedIn(false);
-    setUsername("");
+  //   // Update auth context state
+  //   setIsLoggedIn(false);
+  //   setUsername("");
 
-    // Navigate to home page
-    navigate("/");
-  }
+  //   // Navigate to home page
+  //   navigate("/");
+  // }
   return (
     <div className={styles.container}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <button className={styles.closeButton} height={50} width={60} onClick={handleClosePage}>x</button>
+        <button className={styles.closeButton} type="button" height={50} width={60} onClick={() => { navigate("/"); }}>x</button>
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
           <label>Username:</label>
