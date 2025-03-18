@@ -74,7 +74,14 @@ const Login = () => {
 
   const handleClosePage = () => {
     localStorage.removeItem("token");
-    navigate("/")
+    localStorage.removeItem("username");
+
+    // Update auth context state
+    setIsLoggedIn(false);
+    setUsername("");
+
+    // Navigate to home page
+    navigate("/");
   }
   return (
     <div className={styles.container}>
