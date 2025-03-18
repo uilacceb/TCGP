@@ -123,7 +123,7 @@ const UserInfo = () => {
     return Math.ceil(purchasedItems.length / visibleItems);
   };
 
-  const handleRemoveItem = async (cardId) => {
+  const handleRemoveItem = async (cardId, price, quantity) => {
     if (!token || !username) {
       console.error("Missing token or username");
       return;
@@ -137,13 +137,14 @@ const UserInfo = () => {
         },
         data: {
           cardId,
-          username
+          username,
+          price,
+          quantity
         }
       });
 
       console.log("Item removed:", response.data);
       setTriggerRefresh(prev => prev + 1)
-
 
     } catch (error) {
       console.error("Error removing item:", error);
@@ -178,7 +179,7 @@ const UserInfo = () => {
                     className={styles.carouselItem}
                   >
                     <div>
-                      <FaTrashCan className={styles.deleteIcon} color="#FF2B3D" onClick={() => handleRemoveItem(item.cardId)} />
+                      <FaTrashCan className={styles.deleteIcon} color="#FF2B3D" onClick={() => handleRemoveItem(item.cardId, item.price, item.quantity)} />
                     </div>
                     <img
                       src={item.imageURL}

@@ -278,7 +278,7 @@ export const getAvailableMoney = async (req, res) => {
 
 export const removePurchasedItem = async (req, res) => {
   try {
-    const { username, cardId } = req.body
+    const { username, cardId, price, quantity } = req.body
     if (!username) {
       return res.status(404).json({ message: "username is required" })
     }
@@ -291,8 +291,14 @@ export const removePurchasedItem = async (req, res) => {
 
     user.purchasedItems = user.purchasedItems.filter(card => card.cardId !== cardId)
 
+    user.availableMoney += quantity * price;
+
     await user.save();
-    return res.status(200).json({ "Item removed": cardId })
+    return res.status(200).json({
+      message: "Item removed successfully",
+      removedItem: cardId,
+      price: price
+    })
   } catch (error) {
     res.status(500).json({ message: error })
   }
