@@ -11,6 +11,9 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
+
+
   // Update local state when prop changes
   useEffect(() => {
     setLocalQuantity(quantity);
@@ -71,7 +74,7 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
       });
 
       await axios.put(
-        "http://localhost:8080/product/cart",
+        `${API_URL}/product/cart`,
         {
           username,
           cardId,
@@ -108,7 +111,7 @@ const CartSingleItem = ({ price, quantity, productName, src, cardId, onQuantityC
     try {
       setUpdating(true);
 
-      const response = await axios.delete("http://localhost:8080/product/cart", {
+      const response = await axios.delete(`${API_URL}/product/cart`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json"

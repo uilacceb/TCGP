@@ -15,11 +15,12 @@ const Login = () => {
   const [_, setCookies] = useCookies(["access_token"]) //ignore the value of the cookie
 
   const { setIsLoggedIn, setUsername, username } = useContext(AuthContext)
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/auth/login", {
+      const response = await axios.post(`${API_URL}/auth/login`, {
         username: inputUsername,
         password
       });

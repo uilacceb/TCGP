@@ -10,6 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ const SignUp = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/auth/register", {
+      await axios.post(`${API_URL}/auth/register`, {
         username,
         password
       });

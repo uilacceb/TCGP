@@ -7,7 +7,7 @@ const SingleCard = ({ src, name, id, onClick, price, cardId, rarity }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [message, setMessage] = useState("");
-
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
   const handleInputChange = (e) => {
@@ -32,7 +32,7 @@ const SingleCard = ({ src, name, id, onClick, price, cardId, rarity }) => {
       }
 
       await axios.post(
-        "http://localhost:8080/product/cart",
+        `${API_URL}/product/cart`,
         {
           cardId,
           productName: name,

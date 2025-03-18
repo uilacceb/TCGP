@@ -15,6 +15,7 @@ const UserInfo = () => {
   const username = localStorage.getItem('username');
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   // Calculate visible items based on screen width
   const getVisibleItemCount = () => {
@@ -42,7 +43,7 @@ const UserInfo = () => {
 
   const getBalance = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/product/availableMoney`, {
+      const response = await axios.get(`${API_URL}/product/availableMoney`, {
         headers: {
           Authorization: token
         }
@@ -55,7 +56,7 @@ const UserInfo = () => {
 
   const getPurchasedItems = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/product/purchasedItems`, {
+      const response = await axios.get(`${API_URL}/product/purchasedItems`, {
         headers: {
           Authorization: token
         }
@@ -71,7 +72,7 @@ const UserInfo = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8080/auth/logout");
+      await axios.post(`${API_URL}/auth/logout`);
       localStorage.removeItem("token");
       localStorage.removeItem("username");
       setIsLoggedIn(false);
@@ -130,7 +131,7 @@ const UserInfo = () => {
     }
 
     try {
-      const response = await axios.delete("http://localhost:8080/product/purchasedItems", {
+      const response = await axios.delete(`${API_URL}/product/purchasedItems`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json"

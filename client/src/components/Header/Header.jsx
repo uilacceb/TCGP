@@ -14,6 +14,7 @@ const Header = () => {
   const { isLoggedIn, username, availableMoney, setAvailableMoney } = useContext(AuthContext)
 
   const token = localStorage.getItem("token")
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     getBalance()
@@ -21,7 +22,7 @@ const Header = () => {
 
   const getBalance = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/product/availableMoney`, {
+      const response = await axios.get(`${API_URL}/product/availableMoney`, {
         headers: {
           Authorization: token
         }

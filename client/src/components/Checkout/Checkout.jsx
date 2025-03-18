@@ -18,6 +18,8 @@ const Checkout = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate()
 
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
+
   // Fetch cart items when component mounts
   useEffect(() => {
     fetchCartItems();
@@ -33,7 +35,7 @@ const Checkout = () => {
 
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8080/product/cart`, {
+      const response = await axios.get(`${API_URL}/product/cart`, {
         headers: {
           Authorization: token
         }
@@ -107,7 +109,7 @@ const Checkout = () => {
       setLoading(true);
 
       await axios.post(
-        "http://localhost:8080/product/checkout",
+        `${API_URL}/product/checkout`,
         { username },
         {
           headers: {
