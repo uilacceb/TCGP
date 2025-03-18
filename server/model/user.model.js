@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   },
   availableMoney: {
     type: Number,
-    default: 100000
+    default: 10000000
   },
   shoppingCartItems:{
     type: Array,
