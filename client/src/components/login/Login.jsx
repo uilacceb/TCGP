@@ -71,10 +71,15 @@ const Login = () => {
       setError(errorMessage)
     }
   }
+
+  const handleClosePage = () => {
+    localStorage.removeItem("token");
+    navigate("/")
+  }
   return (
     <div className={styles.container}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <button className={styles.closeButton} height={50} width={60} onClick={() => navigate("/")}>x</button>
+        <button className={styles.closeButton} height={50} width={60} onClick={handleClosePage}>x</button>
         <img src={loginLogo} height={60} width={80} />
         <div className={styles.element}>
           <label>Username:</label>
