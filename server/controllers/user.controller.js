@@ -34,7 +34,7 @@ export const login = async (req, res) => {
     }
     //jwt sign
     const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET)
-    console.log(token)
+    // console.log(token)
 
     res.status(200).json({ token, userID: user._id })
   } catch (error) {
@@ -47,7 +47,7 @@ export const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
 
     // Log the token to help with debugging
-    console.log("Token received:", token);
+    // console.log("Token received:", token);
 
     if (!token) {
       console.log("No token provided");
@@ -62,7 +62,7 @@ export const verifyToken = (req, res, next) => {
 
       // Add decoded user info to request object
       req.user = decoded;
-      console.log("Token verified successfully for user:", decoded.id);
+      // console.log("Token verified successfully for user:", decoded.id);
       next();
     });
   } catch (error) {
