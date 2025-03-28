@@ -14,8 +14,10 @@ import genericApexSerie from "../../assets/genetic apex series.webp";
 import smackDownSeries from "../../assets/space time smack down series.webp";
 import mythicalIslandSeries from "../../assets/mythical island series.webp";
 import triumphantSeries from "../../assets/triumphant light.png";
+import ShiningSeries from "../../assets/shining set.webp"
 import TriumphantLightPackURL from "../../assets/Triumphant Light Pack.png";
 import EveryPack from "../../assets/boosterPack.png";
+import shiny from "../../assets/shining-revelry.webp"
 import { FaAngleUp } from "react-icons/fa6";
 import ProductModel from "../../ProductModel";
 
@@ -85,7 +87,8 @@ const PokemonCard = () => {
         ...data.A1a,
         ...data.A2,
         ...data.PA,
-        ...data.A2a
+        ...data.A2a,
+        ...data.A2b
       ];
 
       const filtered = combined.map(card => new ProductModel(card)).filter(
@@ -107,7 +110,8 @@ const PokemonCard = () => {
         ...data.A1a,
         ...data.A2,
         ...data.PA,
-        ...data.A2a
+        ...data.A2a,
+        ...data.A2b
       ];
 
       const filtered = combined.map(card => new ProductModel(card)).filter(
@@ -128,7 +132,8 @@ const PokemonCard = () => {
         ...data.A1a,
         ...data.A2,
         ...data.PA,
-        ...data.A2a
+        ...data.A2a,
+        ...data.A2b
       ];
 
       const filtered = combined.map(card => new ProductModel(card)).filter(
@@ -145,8 +150,9 @@ const PokemonCard = () => {
   const filterSetA1 = () => fetchAndFilterSet("Genetic Apex  (A1)");
   const filterSetA1a = () => fetchAndFilterSet("Mythical Island  (A1a)");
   const filterSetA2 = () => fetchAndFilterSet("Space-Time Smackdown  (A2)");
-  const filterSetPA = () => fetchAndFilterSet("Promo-A");
+  const filterSetPA = () => fetchAndFilterSet("promo-a");
   const filterSetA2a = () => fetchAndFilterSet("Triumphant Light  (A2a)");
+  const filterSetA2b = () => fetchAndFilterSet("shiningrevelry(a2b)")
 
   // --- Buttons for filtering packs ---
   const filterPackMewTwo = () => fetchAndFilterPack("Mewtwo pack");
@@ -156,6 +162,7 @@ const PokemonCard = () => {
   const filterPackPalkia = () => fetchAndFilterPack("Palkia pack");
   const filterPackMythical = () => fetchAndFilterPack("Mew pack");
   const filterPackTriumphantLight = () => fetchAndFilterPack("Arceus pack");
+  const filterShiny = () => fetchAndFilterPack("everypack")
   // const filterEveryPack = () => fetchAndFilterPack("Every pack");
 
   // --- Buttons for filtering rarities ---
@@ -290,6 +297,11 @@ const PokemonCard = () => {
             <img src={triumphantSeries} onClick={filterSetA2a} width={230} alt="Triumphant Light Series" />
           </div>
           <div
+            className={`${styles.seriesIcons} ${activeFilter === "set-Triumphant Light  (A2a)" ? styles.activeFilter : ""}`}
+          >
+            <img src={ShiningSeries} onClick={filterSetA2b} width={230} alt="Shining Revelry Series" />
+          </div>
+          <div
             className={`${styles.seriesIcons} ${activeFilter === "set-Promo-A" ? styles.activeFilter : ""}`}
           >
             <img onClick={filterSetPA} src={promoA} alt="Promo-A pack" />
@@ -332,6 +344,11 @@ const PokemonCard = () => {
             className={styles.packIcons}
           >
             <img src={MythIslandURL} onClick={filterPackMythical} height={150} alt="Mew Pack" />
+          </div>
+          <div
+            className={styles.packIcons}
+          >
+            <img src={shiny} alt="shiny packs" onClick={filterShiny} height={150} />
           </div>
           <div
             className={styles.packIcons}

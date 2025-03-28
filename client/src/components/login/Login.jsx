@@ -26,7 +26,7 @@ const Login = () => {
       });
       const token = response.data.token; // Extract token from response
       setCookies("access_token", token)
-      console.log("Received Token:", token);
+      // console.log("Received Token:", token);
 
       if (token) {
         localStorage.setItem("token", token); // Store token in local storage
