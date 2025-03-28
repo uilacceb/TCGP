@@ -3,6 +3,7 @@ import styles from "./PokemonCard.module.css";
 import SingleCard from "../Single-Card/SingleCard";
 import { fetchAllCards } from "../../pokemonDB";
 import MythIslandURL from "../../assets/Mythical-Island.png";
+import rarityShining from "../../assets/rarity shiny.webp"
 import rarityStar from "../../assets/rarity star.webp";
 import rarityDiamond from "../../assets/rarity diamond.webp";
 import rarityCrown from "../../assets/rarity crown.webp";
@@ -174,6 +175,7 @@ const PokemonCard = () => {
   const filterTwoDiamondPack = () => filterRarityCard("◊◊");
   const filterOneDiamondPack = () => filterRarityCard("◊");
   const filterCrownPack = () => filterRarityCard("Crown Rare");
+  // const filterShiningPack = () => filterRarityCard("Unknown")
 
   const handleRefresh = () => {
     setToggleRefresh(prev => prev + 1);
@@ -272,6 +274,12 @@ const PokemonCard = () => {
           >
             <img src={rarityDiamond} height={30} width={20} alt="Diamond" />
           </div>
+          {/* <div
+            className={`${styles.rarityIcons} ${activeFilter === "rarity-◊" ? styles.activeFilter : ""}`}
+            onClick={filterShiningPack}
+          >
+            <img src={rarityShining} height={30} width={20} alt="Diamond" />
+          </div> */}
         </div>
 
         {/* filter series */}
