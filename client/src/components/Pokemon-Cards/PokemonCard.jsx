@@ -148,7 +148,7 @@ const PokemonCard = () => {
   const filterSetA2 = () => fetchAndFilterSet("Space-Time Smackdown  (A2)");
   const filterSetPA = () => fetchAndFilterSet("promo-a");
   const filterSetA2a = () => fetchAndFilterSet("Triumphant Light  (A2a)");
-  const filterPackShining = () => fetchAndFilterSet("shiningrevelry(a2b)")
+  const filterSetA2b = () => fetchAndFilterSet("shiningrevelry(a2b)")
 
   // --- Buttons for filtering packs ---
   const filterPackMewTwo = () => fetchAndFilterPack("Mewtwo pack");
@@ -227,7 +227,7 @@ const PokemonCard = () => {
           <FilterSeries src={mythicalIslandSeries} onClick={filterSetA1a} />
           <FilterSeries src={smackDownSeries} onClick={filterSetA2} />
           <FilterSeries src={triumphantSeries} onClick={filterSetA2a} />
-          <FilterSeries src={ShiningSeries} onClick={filterSetA2a} />
+          <FilterSeries src={ShiningSeries} onClick={filterSetA2b} />
           <FilterSeries src={promoA} onClick={filterSetPA} />
         </div>
 
@@ -240,7 +240,7 @@ const PokemonCard = () => {
           <FilterPacks src={dialgaPackURL} onClick={filterPackDialga} />
           <FilterPacks src={pakiyaPackURL} onClick={filterPackPalkia} />
           <FilterPacks src={TriumphantLightPackURL} onClick={filterPackTriumphantLight} />
-          <FilterPacks src={shiningPackURL} onClick={filterPackShining} />
+          <FilterPacks src={shiningPackURL} onClick={filterSetA2b} />
           <FilterPacks src={EveryPack} onClick={handleRefresh} />
         </div>
       </div>
