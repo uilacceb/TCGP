@@ -158,7 +158,7 @@ const PokemonCard = () => {
   const filterPackPalkia = () => fetchAndFilterPack("Palkia pack");
   const filterPackMythical = () => fetchAndFilterPack("Mew pack");
   const filterPackTriumphantLight = () => fetchAndFilterPack("Arceus pack");
-  const filterPackShining = () => fetchAndFilterPack("Arceus pack");
+  const filterPackShining = () => fetchAndFilterPack("Shining pack");
 
   // --- Buttons for filtering rarities ---
   const filterThreeStarPack = () => filterRarityCard("☆☆☆");
