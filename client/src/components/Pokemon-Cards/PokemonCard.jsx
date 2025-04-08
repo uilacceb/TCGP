@@ -3,7 +3,7 @@ import styles from "./PokemonCard.module.css";
 import SingleCard from "../Single-Card/SingleCard";
 import { fetchAllCards } from "../../pokemonDB";
 import MythIslandURL from "../../assets/Mythical-Island.png";
-// import rarityShining from "../../assets/rarity shiny.webp"
+import rarityShining from "../../assets/rarity shiny.webp"
 import rarityStar from "../../assets/rarity star.webp";
 import rarityDiamond from "../../assets/rarity diamond.webp";
 import rarityCrown from "../../assets/rarity crown.webp";
@@ -158,6 +158,7 @@ const PokemonCard = () => {
   const filterPackPalkia = () => fetchAndFilterPack("Palkia pack");
   const filterPackMythical = () => fetchAndFilterPack("Mew pack");
   const filterPackTriumphantLight = () => fetchAndFilterPack("Arceus pack");
+  const filterPackShining = () => fetchAndFilterPack("Arceus pack");
 
   // --- Buttons for filtering rarities ---
   const filterThreeStarPack = () => filterRarityCard("☆☆☆");
@@ -167,6 +168,8 @@ const PokemonCard = () => {
   const filterThreeDiamondPack = () => filterRarityCard("◊◊◊");
   const filterTwoDiamondPack = () => filterRarityCard("◊◊");
   const filterOneDiamondPack = () => filterRarityCard("◊");
+  const filterTwoShiningPack = () => filterRarityCard("✵✵");
+  const filterOneShiningPack = () => filterRarityCard("✵");
   const filterCrownPack = () => filterRarityCard("Crown Rare");
   // const filterShiningPack = () => filterRarityCard("Unknown")
 
@@ -218,6 +221,8 @@ const PokemonCard = () => {
           <FilterRarity src={rarityDiamond} onClick={filterThreeDiamondPack} num={3} />
           <FilterRarity src={rarityDiamond} onClick={filterTwoDiamondPack} num={2} />
           <FilterRarity src={rarityDiamond} onClick={filterOneDiamondPack} num={1} />
+          <FilterRarity src={rarityShining} onClick={filterTwoShiningPack} num={2} />
+          <FilterRarity src={rarityShining} onClick={filterOneShiningPack} num={1} />
 
         </div>
 
@@ -240,7 +245,7 @@ const PokemonCard = () => {
           <FilterPacks src={dialgaPackURL} onClick={filterPackDialga} />
           <FilterPacks src={pakiyaPackURL} onClick={filterPackPalkia} />
           <FilterPacks src={TriumphantLightPackURL} onClick={filterPackTriumphantLight} />
-          <FilterPacks src={shiningPackURL} onClick={filterSetA2b} />
+          <FilterPacks src={shiningPackURL} onClick={filterPackShining} />
           <FilterPacks src={EveryPack} onClick={handleRefresh} />
         </div>
       </div>

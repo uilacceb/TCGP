@@ -5,7 +5,7 @@ class ProductModel {
     this.productName = cardData.name;
     this.price = this.getPrice(cardData);
     this.imageURL = cardData.image;
-    this.stockQuantity = 5; // Default value
+    // this.stockQuantity = 5; // Default value
     this.rarity = cardData.rarity;
     this.hp = parseInt(cardData.hp);
     this.card_type = cardData.card_type;
