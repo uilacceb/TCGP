@@ -34,6 +34,10 @@ class ProductModel {
         return 8000
       case "Crown Rare":
         return 10000
+      case "✵":
+        return 6000
+      case "✵✵":
+        return 9000
       case "":
         return 100
       default:

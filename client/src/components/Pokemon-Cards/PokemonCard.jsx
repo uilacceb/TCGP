@@ -199,6 +199,10 @@ const PokemonCard = () => {
         return <><img src={rarityStar} /><img src={rarityStar} /><img src={rarityStar} /></>
       case "Crown Rare":
         return <img src={rarityCrown} />
+      case "✵✵":
+        return <><img src={rarityShining} /><img src={rarityShining} /></>
+      case "✵":
+        return <><img src={rarityShining} /></>
       case "":
         return "N/A"
       default:
