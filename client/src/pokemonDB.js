@@ -5,6 +5,7 @@ const paApi = "https://raw.githubusercontent.com/uilacceb/tcgp-cards/refs/heads/
 const a2aApi = "https://raw.githubusercontent.com/uilacceb/tcgp-cards/refs/heads/main/A2a.json"
 const a2bApi = "https://raw.githubusercontent.com/uilacceb/tcgp-cards/refs/heads/main/A2b.json"
 const a3Api = "https://raw.githubusercontent.com/uilacceb/tcgp-cards/refs/heads/main/A3.json"
+const a3aApi = "https://raw.githubusercontent.com/uilacceb/tcgp-cards/refs/heads/main/A3a.json"
 
 const update = (cards, setName) => {
   return cards.map(card => ({
@@ -16,25 +17,27 @@ const update = (cards, setName) => {
 export const fetchAllCards = async () => {
   try {
     // 1) Fetch all four endpoints in parallel:
-    const [resA1, resA1a, resA2, resPA, resA2a, resA2b, resA3] = await Promise.all([
+    const [resA1, resA1a, resA2, resPA, resA2a, resA2b, resA3, resA3a] = await Promise.all([
       fetch(a1Api),
       fetch(a1aApi),
       fetch(a2Api),
       fetch(paApi),
       fetch(a2aApi),
       fetch(a2bApi),
-      fetch(a3Api)
+      fetch(a3Api),
+      fetch(a3aApi)
     ]);
 
     // 2) Parse each response into JSON:
-    const [A1, A1a, A2, PA, A2a, A2b, A3] = await Promise.all([
+    const [A1, A1a, A2, PA, A2a, A2b, A3, A3a] = await Promise.all([
       resA1.json(),
       resA1a.json(),
       resA2.json(),
       resPA.json(),
       resA2a.json(),
       resA2b.json(),
-      resA3.json()
+      resA3.json(),
+      resA3a.json()
     ]);
 
     // 3) Add the “set” prefix to each card’s ID:
@@ -45,6 +48,7 @@ export const fetchAllCards = async () => {
     const a2aCards = update(A2a, "A2a")
     const a2bCards = update(A2b, "A2b")
     const a3Cards = update(A3, "A3")
+    const a3aCards = update(A3a, "A3a")
 
     // 4) Return as one JSON object with multiple fields:
     return {
@@ -54,7 +58,8 @@ export const fetchAllCards = async () => {
       PA: paCards,
       A2a: a2aCards,
       A2b: a2bCards,
-      A3: a3Cards
+      A3: a3Cards,
+      A3a: a3aCards
     };
   } catch (error) {
     console.error("Error fetching or parsing data:", error);

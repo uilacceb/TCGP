@@ -12,6 +12,7 @@ import PikachuPackURL from "../../assets/genetic-apex-pikachu.webp";
 import MewTwoPackURL from "../../assets/genetic-apex-mewtwo.webp";
 import promoA from "../../assets/promoA.webp";
 import genericApexSerie from "../../assets/genetic apex series.webp";
+import extraDimensionalPackURL from "../../assets/extraDimentionalCrisisPack.png"
 import smackDownSeries from "../../assets/space time smack down series.webp";
 import pakiyaPackURL from "../../assets/palkia-booster.webp"
 import dialgaPackURL from "../../assets/dialga-booster.webp"
@@ -20,6 +21,7 @@ import triumphantSeries from "../../assets/triumphant light.png";
 import ShiningSeries from "../../assets/shining set.webp"
 import CeletialsGuardiansSeries from "../../assets/A3_Set_Logo_EN.png"
 import TriumphantLightPackURL from "../../assets/Triumphant Light Pack.png";
+import extraDimensionalCrisisSeries from "../../assets/extraDimentionalCrisisSeries.png"
 import EveryPack from "../../assets/boosterPack.png";
 import shiningPackURL from "../../assets/shining-revelry.webp"
 import lunalaPackURL from "../../assets/lunala pack.png"
@@ -52,7 +54,8 @@ const PokemonCard = () => {
           ...data.A2,
           ...data.PA,
           ...data.A2a,
-          ...data.A3
+          ...data.A3,
+          ...data.A3a
         ].map(card => new ProductModel(card));
         setCards(combined);
       } catch (error) {
@@ -92,7 +95,8 @@ const PokemonCard = () => {
         ...data.PA,
         ...data.A2a,
         ...data.A2b,
-        ...data.A3
+        ...data.A3,
+        ...data.A3a
       ];
 
       const filtered = combined.map(card => new ProductModel(card)).filter(
@@ -115,7 +119,8 @@ const PokemonCard = () => {
         ...data.PA,
         ...data.A2a,
         ...data.A2b,
-        ...data.A3
+        ...data.A3,
+        ...data.A3a
       ];
 
       const filtered = combined.map(card => new ProductModel(card)).filter(
@@ -137,7 +142,8 @@ const PokemonCard = () => {
         ...data.PA,
         ...data.A2a,
         ...data.A2b,
-        ...data.A3
+        ...data.A3,
+        ...data.A3a
       ];
 
       const filtered = combined.map(card => new ProductModel(card)).filter(
@@ -157,6 +163,7 @@ const PokemonCard = () => {
   const filterSetA2a = () => fetchAndFilterSet("Triumphant Light  (A2a)");
   const filterSetA2b = () => fetchAndFilterSet("shiningrevelry(a2b)")
   const filterSetA3 = () => fetchAndFilterSet("celestialguardians(a3)")
+  const filterSetA3a = () => fetchAndFilterSet("extradimensionalcrisis(a3a)")
 
   // --- Buttons for filtering packs ---
   const filterPackMewTwo = () => fetchAndFilterPack("Mewtwo pack");
@@ -169,6 +176,7 @@ const PokemonCard = () => {
   const filterPackShining = () => fetchAndFilterPack("Shining pack");
   const filterPackLunala = () => fetchAndFilterPack("Lunala pack");
   const filterPackSolgaleo = () => fetchAndFilterPack("Solgaleo pack");
+  const filterPackDimensional = () => fetchAndFilterPack("ExtraDimensional pack");
 
   // --- Buttons for filtering rarities ---
   const filterThreeStarPack = () => filterRarityCard("☆☆☆");
@@ -248,6 +256,7 @@ const PokemonCard = () => {
           <FilterSeries src={triumphantSeries} onClick={filterSetA2a} />
           <FilterSeries src={ShiningSeries} onClick={filterSetA2b} />
           <FilterSeries src={CeletialsGuardiansSeries} onClick={filterSetA3} />
+          <FilterSeries src={extraDimensionalCrisisSeries} onClick={filterSetA3a} />
           <FilterSeries src={promoA} onClick={filterSetPA} />
         </div>
 
@@ -263,6 +272,7 @@ const PokemonCard = () => {
           <FilterPacks src={shiningPackURL} onClick={filterPackShining} />
           <FilterPacks src={lunalaPackURL} onClick={filterPackLunala} />
           <FilterPacks src={solgaleoPackURL} onClick={filterPackSolgaleo} />
+          <FilterPacks src={extraDimensionalPackURL} onClick={filterPackDimensional} />
           <FilterPacks src={EveryPack} onClick={handleRefresh} />
         </div>
       </div>
